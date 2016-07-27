@@ -1,0 +1,678 @@
+Link para download de todos os datasets usados no curso:
+
+http://datascienceacademy.com.br/blog/aluno/RFundamentos/Datasets
+
+
+ML - Ensinar algoritmos a usar inteligência para resolver problemas.
+
+
+Porque o R e Microsoft Azure Machine Leraning?
+.Azure Machine Leraning é visual, enquanto R é linha de comando;
+.O R permite estender as funcionalidade do Azure ML;
+.Combinação que permite escabilidade e mais manipulação de ddos e criação de modelos;
+.O ML Studio traz 
+
+Azure ML Workflow - Inião de interface gráfica com linha de comando que está dando certo!!!!
+
+
+Evolução dos Sistemas Analíticos:
+
+
+Business Intelligence - 
+> primeiro avaliamos para observarmos o que estava acontecendo ou o que havia acontecido.
+Este é um sistema de modelo descritivo que buscam buscar padrões, aonde entra o sistema de BI.
+Expondo porque as coisas acontecem , buscar certo padrões ou fenômenos.
+
+Business Analytics-
+> após o sistema de BI temos o Business Analytics que utilizam modelos preditivos para tentar preveer eventos futuros 
+Matéria prima = indicadores, pesquisas, dados de ferramentas de BI, conteúdo das Redes Sociais, Arquivos Log e Sensores, Relatórios e e-mails.
+Vantagens:
+Mapear as massas identificando padrões/perfil e análise da ocorrência em determinada região e aperfeiçoar o objetivo planejado. Realizando um atendimento mais eficiente 
+e preciso alocando recursos necessários para o atendimento das demandas minimizando o custo, tornando acertiva a necessidade dos beneficiários.
+
+5 Perguntas que precisam ser respondidas antes de pensar em Big Data Analytics.
+.Big Data Analytics é ciência e não advinhação.
+
+1 - Qual o objetivo?
+2 - Qual a origem dos dados? >uma vez que os dados dará inteligencia de negócio ao seu Business você deve identificar os potenciais fontes de dados definindo seus alvos
+você precisa descobrir quais são os indicadores que serão utilizados para acalça-los.
+3 - Que solução escolher? > existem muitas soluções de análise de dados no mercado, uma escolha criteriosa passa por uma pesquisa profunda e comparação entre as melhores
+disponiveis, veremos ao longo do curso algumas.
+4 - Este será um trabalho em equipe? > consultorias externas/parceiros/clientes/fornecedores. Todos eles poderam contribuir com dados ou informações relevante para o resultado do seu projeto.
+5 - Qual o impacto que o Big Data Analytics terá no negócio? > Big Data Analytics devem alcançar os dados internos e externos ao ambiente cooporativo.
+
+Como o Big Data Analytics afeta a área de negócio?
+
+SAÚDE:
+>Combate a doenças e epidemias;
+>Dispositivos móveis de monitoramento;
+>Atendimento médico individualizado;
+>Wearables e apps;
+
+A Accenture Healthcare IT Vision 2015, uma pesquisa anual sobre tendências de tecnologia, traz dados interessantes sobre o uso de Big Data na Saúde
+
+A Accenture Healthcare IT Visão 2015 revela cinco principais tendências: A Internet of Me, Resultado evolução da economia, Plataforma (R), Intelligent Enterprise e força de trabalho reinventado. Estas tendências provam claramente que o digital está a influenciar drasticamente a indústria hoje,
+e continuará a fazê-lo para as próximas décadas.https://www.accenture.com/us-en/insight-healthcare-technology-vision-2015
+
+
+Big Data Analytics = Estatística + Matemática + Mídias Sociais + Macroeconomia + Tecnologia + Dados
+
+MAKETING:
+> Análise de Mercado mais específico  - 
+Análise descritiva - extrair significado de eventos ocorridos;
+Análise preditiva - estabelecer correlações; 
+Análise prescritiva - levantar idéias.
+
+> Interpretação de Dados mais eficaz - 
+Mineração de dados, interpretação estatística.
+
+> Mais fontes de dados - 
+Dados demográficos, não são mais suficientes para demonstrar o perfil do consumidor.
+Páginas do Face, check in que faz no foursquare, dizem muito de suas preferencias e ajudam a identificar clientes em potencial.
+Há varegistas que consideram dados meterológicos para comprarem mercadorias para seus pontos de vendas.
+
+> Automação do Marketing - 
+Páginas no Face disponibilizam tendencias, consideram o ID dos usuários, dispositivos moveis rastreiam os movimentos da pessoas.77
+Podendo mapaear as tendencias e campanhas com análises preditivas, o profissional consegue medir o comportamento do internauta da comcorrência e do mercado.
+
+>Experiências mais significativas no ponto de Venda - 
+
+INDUSTRIA:
+
+>Eficiência no planejamento;
+>Gestão de Suprimentos;
+>Redução de Custos
+
+
+.sqldf - pacote que permite realizar queries SQL em dataframes no R;
+.forecast - modelar séries temporais;
+.plyr - dividir uma estrutura de dados em grupos e aplicar funções a cada grupo;
+.stringr - manipulação de strings;
+.database drivers - RMongo, RODBC, RMySQL;
+.ggplot2 - visualização de dados;
+.qcc - controle de qualidade estatístico;
+.randomForest - pacote para Machine Learning;
+
+R e Microsoft Azure Machine Leraning
+
+Azure Machine Leraning
+. Serviço online, que pode ser usado para criar, operar e pesquisar usando análise preditiva na nuvem
+utilizando um web browse, você se inscrever e fazer experimento de análise prediva.
+.Há várias bibliotecas e o modo de trabalho é arrastar e soltar.
+Machine Leraning Studio
+. É possível construir um fluxo de trabalho para experimento de DataScience, muito parecido com o Knime.
+
+Diversos Módulos de ML:
+Explo: Azure ML Toolkit (algoritmos de Classificação, Regressão e Clusters)
+
+Azure HDInsight
+
+2014 - Primeira versão do Azure Machine Learning;
+2014 - Microsoft lança a plataforma Cortana Intelligence, totalmente baseada em ML;
+
+Competidores:
+.Amazom ML (Amazon);
+.IBM Watson Analytics (IBM).
+
+ML traz novos paradigma:
+Dados Output - Computador - Programa -- ML
+Vantagem:
+Previsões em novos conjuntos de dados
+
+O que é o LaTeX?
+> É um programa de marcação para editoração de documento de alta qualidade tipográfica específica para a elaboração de texto
+científico e matemático. O objetivo do LaTeX é que o autor pode se distanciar da apresentação visual, focando apenas na elaboração
+do trabalho científico.
+Ele possui fórmula para tratarmos de bibliografia, referencia e tudo mais que não esteja relacionada com o conteúdo do documento em si.
+A idéia central do LaTeX é distanciar o autor o máximo possível da apresentação visual da informação, pois a constantes preocupação com 
+a formatação desvia o pensamento do conteúdo escrito.
+Trata-se de uma linguagem que possuem funções e comandos e basicamente são transformados e copilados em uma arquivo .pdf.
+
+No LaTex você lida com dois ambientes o código fonte e o produto final. ou seja, contéudo e fórmula são coisa separadas em LaTeX.
+A fórmula de produção de relatórios mais utilizados para os usuários e (R) é por meio de script combinando código LaTeX com código (R).
+>Os arquivos receberão a extensão .Rnw
+Usamos o (R) para converter os .Rnw com apenas código LaTeX. O documento então poderá ser convertido em .pdf encerrando o relatório.
+Utilizando o LaTeX podemos automatizamos o processo de referencias cruzadas e referencias bibliograficas.
+
+Existe duas fórmulas para produção de relatórios neste formato para .pdf:
+
+Sweave () " pacote (R) "  Permite a produção ágil do documento ligando o LaTeX e o (R) - Comando, saídas computacionais e/ou gráficos, saindo automaticamente do texto.
+> elaboração de relatórios, listas de exercícios, textos técnicos, relatórios de análise, artigos cientificos e até livros.
+http://www.leg.ufpr.br/~paulojus/embrapa/Rembrapa/Rembrapase35.html
+
+knit()    " pacote nigth r "
+http://www.pet.est.ufpr.br/?p=3060
+
+Pacotes necessários para pesquisas reproduziveis, ou, Reproducicle Research.
+
+
+[Usando o R Markdown e Criando seu Portfólio]
+
+Porque usa MARKDOWN
+> É fácil de aprender, de forma simples é rápida
+> Linguagem de marcação de texto, que permite criar documentos a partir de texto plano
+ É PARECIDO COM O LaTeX.
+
+É um novo pacote que pode ser instalado. kntir+markdown+pandoc = rmarkdown
+
+install.packtages('rmarkdown)
+
+Podem ser convertidos em html/pdf ou word e em outros formatos. É possível criar tabelas e gráficos interativos.
+
+Documentos em (R) Markdown são totalmente reproduzíveis
+
+
+knit2html()
+
+Converte. Rmd em . Html
+
+[Usando o Github]
+
+Objetivo promover o controle de versão de arquivos, criar um portifólio de projetos
+
+O que é um sistema de controle de versão?
+É um software que irá cuidar das gestão das várias versões de seus arquivos.
+Se um problema acontecer poderá retroagir para uma versão anterior de seu projeto.
+Organizar e versionar esses arquivos é uma boa prática para os cientistas de dados.
+
+Existem varios sistemas de versão:
+. CVS - Concurrent Versions System;
+. SVN - Subversion;
+. VSS - Visual SourceSafe;
+. Rational ClearCase;
+. Git.
+
+[git]
+
+Foi desenvolvido pelo mesmo desenvolvedor do Linux, é o preferido dos desenvolvedores
+Vantagens:
+. Não depender de um servidor central;
+. Dar ênfase à velocidade;
+. Integridade dos dados;
+. Potencializar o trabalho paralelo.
+
+Atualmente todas as ferramentas de desenvolvimentos atuais dão suporte ao git
+seja nativamente ou por meio de plugins.
+
+Porém o mais importante é adquirir o hábito de sistema de versão.
+Mesmo porque os conceitos básicos se aplica a todos eles mudando apenas os comandos.
+
+Principais conceitos do Git
+[Branch]
+Ramificação do projeto, cada branch representa uma versão do seu projeto e podemos
+seguir uma linha de desenvolvimento a partir de cada branch
+
+[Clone]
+Cópia local de todos os arquivos de um repositorio git
+
+[Commit]
+Coleção de alteraçõe realizadas, é uma espécie de chekpoint, sempre que necessário você
+pode retroceder até algum commit existente.
+
+[Fork]
+Uma bifurcação do projeto, uma cópia do projeto existente para seguir uma nova direção.
+
+[Master]
+Branch padrão de um repositório Git.
+
+[Merge]
+É a capacidade de incorporar alterações do git, quando acontece uma junção de diferentes branches.
+
+[Push]
+Empurra as susas alterações para o repositório remoto. É quando está trabalhando na sua máquina e 
+quer atualizar o repositório na internet.
+
+[Repositório]
+Local onde ficam todos os arquivos do projeto, inclusive o histórico e versões.
+
+Já o GitHub - https://github.com é um sistema de hospedagem de sistema git gratuito.
+"Milhões de desenvolvedores usam GitHub para construir projetos pessoais, apoiar as suas 
+empresas, e trabalhar em conjunto em tecnologias open source."
+É uma rede social para desenvolvedores.
+Meu cadastro fcarvalho12
+
+
+CAPITULO II
+
+[R]
+
+O (R) é case-sensitive, isto é, ele diferencia letra maiúsculas de minúsculas.
+>Portanto A é diferente de a.
+>Separador de casas decimais é ponto "."
+>A vírgula é usada para separar argumentos (informações).
+>Evite usar acentos, não só no (R), mas em qualquer arquivos que irá salvar no computador.
+Acentos quando usados em programação pode causar erros, evite sempre que possível.
+>Workspace, cada vez que abre a área de trabalho no RStudio ele abre uma Workspace, aonde fará suas anotações.
+
+[Área de trabalho]
+
+getwd(), aonde seus arquivos serão salvos.
+setwd(), para que você mudar seu ambiente de trabalho.
+ 
+[Lista de Pacotes R]
+https://cloud.r-project.org - clique na opção Packages no menu
+
+[Instalar e ativar funções do pacote]
+
+intall.packages("descr") - instalar o pacote
+library(descr) - para ativar a função
+
+[Existem 4 fórmulas básicas para descubrir o que uma função faz]
+
+help.search()
+??nomedafunção
+RSiteSearch()
+example
+
+
+[Demonstrações]
+Algumas funções em (R), possuem demonstrações de uso, usamos a função:
+
+demo()
+
+[Sessão]
+Sempre que quiser coletar informações sobre a sua função utilize:
+
+sessionInfo()
+
+[Imprimir na Tela]
+Para imprimir uma função na tela utilize a função:
+
+print()
+
+[Repetição de comando]
+Para repitir um comando existente dentro de um script utilize:
+Serve para chamar o comando dentro de outro arquivo
+
+source()
+
+[TIPOS DE DADOS NO (R)]
+
+#Numérico - Inteiros ou reais (1,5.9,-1,4), número do tipo flot como idade, renda, custo, etc.
+
+#Caractere - Representa uma String, sendo um texto, uma palavra, ou mesmo um único caracter ("A", "bolha")
+
+#Complexo - Número complexos são representados pelo valor imaginário "i" que representa uma unidade imaginária
+o (R) precisa saber que estamos trabalhando com a variável imaginária, caso contrario apresentará NA - Not a Number, não é número que 
+indica uma indefinição matemática.
+mesmo que a parte imaginária seja nula "i" é necessário evidencia-la para que o (R) retorne o valor, pode ser escrito
+z=x+yi > x e y números reais e "i" uma unidade de imaginário.
+
+#Lógico - variaveis que podem ser verdadeiro"TRUE" ou falso"FALSE"
+
+[VALORES FALTANTES E ESPECIAIS] - veremos como apresenta dentro de dataset e como trata-los, esse é um dos principais problemas de um CD
+
+NA - Not Available
+NaN - Not a Number
+Inf e -Inf > mais ou menos infinito
+
+
+as.integer(TRUE), sempre será "1" e FALSE "0", dentro do computador é tudo 1 (passa coreente) ou 0 (não passa corrente)
+
+[VARIAVEIS]
+
+Na programacao variavel e uma area no computador aonde se armazena valores
+
+[OBJETOS DO (R)]
+
+# Vetores > sequencia de valores numericos ou caracteres.
+# Matrizes > Coleção de vetores em linhas e colunas. Sendo que todos os vetores devem ser do mesmo tipo de dados.
+# Lista > São conjuntos de vetores, dataframes ou matrizes, que não precisam ter o mesmo comprimento. A maioria das funcoes em (R) retorna ao 
+fato uma lista de elementos logicos.
+# Dataframes > O mesmo que matrizes, porém aceita os vetores com tipos de dados diferentes
+geralmente nos guardamos nosso dados em objetos no estilo dataframe, pois ele permite que armezenem dados de estilos diferentes.
+# Funcoes > as funcoes servem para realizarmos calculos e operacoes com outros objetos em (R), mais a funcao por si propria é um objeto em (R).
+
+*Precisamos saber que existe uma logica de programacao dentro do (R) para cada um desses objetos.
+ precisamos saber que operacoes podemos realizar com esses objetos. O que fazemos no (R) e um codigo que esta capsulado para realizarmos cada objeto 
+ Nao preciso saber o que e feito embaixo dos panos, preciso saber o que fazer!!
+
+[VETORES]
+
+Vetores são conjuntos de elementos da mesma natureza, tendo significado diferente da matematica, para o (R) é qualquer conjunto de dados unidimensional 
+de valores, esses valores podem ser numeros, strings ou valores logicos (TRUE, FALSE).
+Para o (R) o vetor tem significado mais amplo que na matematica.
+
+#Criando vetores
+c()
+seq()
+rep()
+Entre os parenteses colocamos parametros, valores que serão usados para a criacao dos vetores
+
+[MATRIZES]
+
+Matrizes são conjuntos de elementos de uma mesma natureza, organizados em linhas e colunas.
+Determinado a fórmula matrix(), essa funcao tem como argumento o numero de dados, o numero de linhas e o numero de colunas da matriz.
+Note: O conjunto de dados tem que ser escrito na ordem das colunas, ou seja, como se as colunas estivessem enfileiradas umas sobre as outras.
+
+# ARRAY - o array(), generaliza o conteudo da matriz, enquanto na matriz os elementos são em 2 dimensoes (linhas, colunas) em 
+array os elementos podem se organizar em numero arbitrario de dimensoes.
+O array representa uma hipermatriz, sendo um conjunto de numeros arranjados em mais de 2 dimensoes.
+
+#Criando Matrizes      
+matrix()
+rbind()
+cbind()
+
+# Criando Arrays
+array()
+
+[LISTA]
+
+Lista sao uma generalizacao de vetores e representam uma colecao de objeto
+Lista é uma colecao de objetos de tamanhos e natureza diferente, ela e regida pela funcao list() esta e a estrutura mais generalista da linguagem (R).
+Podemos por exemplo termos uma lista formada por matrizes e vetores
+Listas sao objetos extremamente flexiveis e poderosos, entretanto são os que mais causam confusoes entre aqueles que estao aprendendo (R).
+
+#Criando Matrizes      
+list()
+
+Exemplo: # Lista de Strings
+lista_caracter = list('A', 'Bem-vindo', 'DSA')
+lista_caracter
+
+[[1]] > elemento 1
+[1] "A" #1º elemento do 1º elemento da lista
+
+[[2]] > elemento 2
+[1] "Bem-vindo" #1º elemento do 2º elemento da lista
+
+[[3]] > elemento 3
+[1] "DSA" #1º elemento do 3º elemento da lista
+
+Observer que cada sao idependentes, pode ser um vetor, uma matriz, etc.
+
+
+[ESTRUTURAS DE CONTROLE]
+
+Elas estao presentes em todos as linguagens de programacao, elas permitem que voce faca validacoes, repita um bloco de codigo com numero determinado de vezes e
+realize mudancas no comportamento de seu script de acordo com determinadas regras.
+
+> Principal estrutura de controle
+
+# Condicionais If-Else - SE/ENTAO
+
+if (condicao) {conjunto de tarefas} else {outro conjunto de tarefas}
+ifelse(condicao, tarefa1, tarefa2)
+
+# Comando for() - loop for
+
+E usado para fazer loop (repetir uma atividade determinado numero de x.
+
+for(i IN 1:N) {conjunto de tarefas}
+
+for( i 'contador' IN 'em' 1:N 'ranger de valores' {conjunto de dados 'que sera executada'}
+
+O loop for() tem uma sintase mais complexa porque o codigo entre parenteses nao apenas testa a condicao
+ele cria o objeto a ser testado.
+
+Exemplo:
+for(i 1:10){print('isso e um loop')}
+
+O objeto i e criado e e seu valor e incrementado de acordo com os valores do vetor
+de 1 a 10, ou seja, o loop e executado 10 vezes, e nesse caso imprime na tela a mensagem 'isso e um loop'.
+
+
+# Comando while() - loop while
+
+while (condicao satisfeita){conjunto de tarefas}
+
+O loop while() tem sintase semelhante aa condicao if(), ou seja, escrevemos entre os parenteses a condicao a ser testada.
+e o codigo sera executado enquanto o teste resultar verdadeiro.
+
+# Repeticoes
+rep(x,y)
+rep(repita x, y vezes)
+repeat{}
+
+as funcoes rep() e repeat() executa determinado bloco de atividade um numero de vezes.
+
+# Verificando e Convertendo
+
+is.vector - essa funcao (is.) verificam se determinado dado, neste caso e um vetor
+as.vector - essa funcao (as.) elas convertendo o objeto, neste exemplo com vetor.
+
+# Matrizes e dataframes no R são semelhantes, mas guardam uma grande diferenca
+as matrizes como ja visto, comportam elementos do mesmo tipo de dado
+os dataframes comportam elementos de diferentes tipos de dados.
+
+# Valores NA - Not Avalible
+Isso vai ser muito comum no seu conjunto de dados nunca vira 100% preenchido
+
+# Funcao Sample
+Ela cria uma amostra de dados.
+para sabermos se existe NA  no conjunto de dados podemos utilizar is.na()
+
+# cbind e rbind
+Serve para unir elementos, exemplo, vou unir o vetor a uma matriz
+
+# Retirar NA caso exista
+na.omit()
+
+# Classificar ordenando os dados
+Explo: a <- c(1,3,2)
+       a
+       a[order(a)]
+Pode ordenar por um conjunto especifico - order(mtcars$mpg)
+
+#  Slicing - fatiando a estracao do dados
+Para fatiar dentro de uma lista tem que usar dois colchetes [[]]
+exemplo - list1[[1]]
+
+# head() serve para obtermos os primeiros elementos de um dataframe
+# tail() ultimos elementos
+# str() resumo
+Exemplo: quero que dentro da base de dados traga um valor maior que 100
+subset(mtcars, subset = hp > 100000)
+
+[FATORES]
+O termo fator refere ao tipo de dados estatistcos para armazenar variaveis categoricas 
+Muito uteis para plots e regressoes
+Fatores representam uma maneira muit eficiente para armazenar valores de caracteres, 
+porque cada caracter unico e armazenado apenas uma vez e os dados sao armazenado como 
+um vetor de inteiros.
+Funcao:
+factor()
+Para criarmos fatores ordenados temos duas funcaos:
+factor(..., ord=T)
+ordered()
+
+# Variaveis categoricas - pertence a um nº limitado de categorias.
+# Variaveis Continuas - podem pertencer a um nº infinito de valores.
+
+E importante que o R saiba quando esta lidando com variaveis categoricas ou continuas
+pois os modelos estatisticos vao tratar as variaveis de forma diferente.
+
+Exemplo:
+Categóricas - Qualitativas 
+>Nominais - Profissao, sexo, relegiao.
+>Ordinais - Escolaridade, classe social, fila.
+
+Continuas - Quantitativas
+>Discretas - Nº de filhos, Nº de carros, Nº de acessos
+>Continuas - Altura, Peso, Salario
+
+Entretando, as distincoes sao mennos rigidas do que esta discricao.
+Uma variavel originalmente quantitativa pode ser coletada de forma qualitativa.
+Exemplo1: a variavel idade, medida em anos completos, e quantitativa (continua),
+mas, se for informada apenas a faixa etaria (0 a 5 anos, 6 a 10 anos, etc...), e
+qualitativa (ordinal)
+Exemplo2: Peso de lutadores de boxe, uma variavel quantitativa (continua) se trabalharmos
+com o valor obtido na balanca, mas qualitativa (ordinal) se classificarmos na categorias
+do boxe (peso-pena, peso-leve, peso-pesado, etc...)
+Nem sempre uma variavel representada por nº e quantitativa.
+
+[FUNCOES]
+Sao grandes trunfos na linguagem de programacao, funcao no R tem a mesma utilidade nas demais liguagens de programacao, ou seja,
+evitar repetir codigos.
+O uso de funcoes deixa o codigo legivel e elegante e menos repetitivo, alem disso as funcoes abstrai para caso mais gerais por meio
+de parametros, fazendo util alem daquelas configuracoes especificas que motivou sua implementacao.
+
+Funcao tambem sao objetos en R, alias tudo que voce utiliza usando atribuidos vira um objeto no R.
+> Funcoes 
+Tudo que voce atribui com    '<-'  vira um objeto no R
+
+Assim e natural pensar que funcao pode receber outras funcoes como argumentos, isso inclusive e bem comum.
+Funcoes aceitam quaisquer e quantos parametros precisarem  retornar ao objeto de qualquer, seja inclusive nada (NULL)
+
+ > nome_da_funcao(parametros)
+
+No lugar dos parametros podera colocar nomes que servirao como objetos (nº, texts, vetores, listas, etc...) qualquer coisa que voce possa
+precisar como parametro para uma funcao.
+
+ > Built-in - o R tem diversas funcoes internas chamada   
+
+Existem ainda a funcao disponibinzada que é simbolizada por 3 pontos:
+
+> nome_da_funcao(...)
+
+Ela é usada quando nao sabe qtos parametros serao pensados, dessa forma qualquer numero de parametros podem ser usadas, cada vez que voce
+executar a funcao, sendo bastante util.
+
+[FUNCOES ANONIMAS]
+
+>test_func <- sapply(c(1:10), function(x) {x %% 2==0})
+>test_func
+[1] FALSE TRUE FALSE TRUE FALSE TRUE FALSE TRUE
+
+As funcoes anonimas sao frequentementes utilizadas e tem essa denominacao, pois nao nos damos ao trabalho de defini-las como objeto permanente.
+O ponto deste exemplo esta na parte function (x)
+
+[FUNCAO ESCOPO]
+
+Escopo se refere ao local onde o objeto foi criado, o escopo pode ser global ou local.
+Objetos criados dentro de uma funcao tem escopo local, ou seja, somente existe dentro daquela funcao
+ 
+[CRIACAO DE FUNCOES]
+
+function(argumentos) {corpo da funcao}
+nome_da_funcao <- function(argumentos) {corpo da funcao}
+
+Esta e uma das vantagens do R, alem de ser um programa para analise estatistica, 
+O R e acima de tudo uma linguagem de programacao, com a qual podemos programar nossas proprias funcoes.
+
+[FUNCOES INTERNAS - BUILT-in]
+abs()
+sqrt()
+prod()
+rev()
+c()
+contributors()
+
+[FUNCAO SAMPLE]
+Essa funcao gera amostras
+
+[FAMILIA FUNCOES - apply()]
+
+# samplly() - recebe dos parametros, 1 objeto e depois a funcao (explo:sum)
+Vetores no R sao cadeias ordenadas de elementos geralmente numeros ou letras e sao objetos de maiores interesses, pois, sao eles que guardam os numeros/ou palavras
+Sao eles os objetos de maior interesse, pois, sao eles que guardam os dados a serem analisados.
+
+##PROBLEMAS -> loops no R sao sofrivelmente ineficientes, as funcoes da familia apply() servem para evitar a utilizacao dos loops.
+
+apply(), tapply(), lapply(), saplly()...
+
+Como loops no R sao problematicos podemos utilizar os apply() que roda dezenas de vezes mais rapido.
+
+apply() - aplica uma funcao a todas as linhas/colunas de uma 'matriz ou dataframe'
+apply(x, MARGIN, FUN, ...)    - x = matriz ou dataframe (objeto)   / MARGIN = linha ou coluna (dever ser o nº 1 ou 2, indicando se e linha ou coluna, 
+                                                                     sendo 1 linha e 2 coluna) / FUN = funcao a ser aplicada (explo: sum)
+
+lapply() ou sapply() - aplica a uma 'funcao ou lista' a diferenca entre elas e que a 1ª retorna uma nova lista e a 2ª sempre que possivel um vetor ou matriz.
+
+lapply() - recebe um vetor ou lista e aplica uma funcao a cada elemento.
+lapply( x, FUN, ...)
+
+sapply() - nada mais e do que uma versao mais amigavel da lapply()
+sapply( x, FUN, ..., simplify = TRUE, use.names = TRUE)
+
+tapply() - os vetores podem ser divididos em diferentes subsets e as funcoes aplicadas a estes subsets
+tapply( x, INDEX, FUN = NULL, ..., simplify = TRUE)
+
+maplly() - versao multivariada da sapply()
+
+vaplly() - similar a sapply() mas possui um tipo especifico que deve ser retornado. O sapply() retorna sempre em vetor. A vapply() podemos determinar qual o tipo
+de retorno apos executarmos a funcao.
+
+by() - versao orientada a obejtos da tapply() aplicada em dataframes.
+
+
+#QUANDO USO 'O QUE' DA FAMILIA apply()?'
+
+-> se voce estiver trabalhando com objetos:
+-> list, numeric, character (list/vector) >> saplly() ou lapply()
+-> matrix, dataframe (agregacao por coluna) >> by() ou tapply()
+-> operacoes por linha ou operacoes especificas >> apply()
+
+
+[FUNCAO unlist()]
+
+'Transpor', uma lista para vetores, usada para descontruir uma lista. 
+-> Vetor é um conjunto de elementos do mesmo tipo de dado, na unlit() podemos fazer uma lista dentro de outra, conforme o exemplo:
+# round(mean(unlist(list2))) #
+
+[FUNCAO do.call()]
+
+A funcao do.call() aplica-se em uma fucao ao objeto inteiro e nao a cada elemento individualmente.
+--> A funcaoes da familia apply() aplicam uma funcao a cada elemento de um objeto (substitui o loop)
+
+As funcao lapply() voce utiliza 1º o objeto depois a funcao. explo: apply(x,sum)
+Ja na funcao do.call() e ao contrario, primeiro utiliza-se a funcao depois o objeto. explo do.call(sum,x)
+
+A funcao do.call(), soma-se todos os elementos, diferente do lapply() que soma apenas elemento a elemento de uma lista de objetos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
