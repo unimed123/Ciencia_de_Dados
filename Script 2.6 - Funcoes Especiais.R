@@ -1,7 +1,7 @@
 ###############################################################################
 # CURSO:  Formação Cientista de Dados        PLATAFORMA: Data Science Academy #
 # MÓDULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
-# Data: 27/07/2016 - inicio aula: 7:13pm     fim aula: hh:mmpm                                 #
+# Data: 27/07/2016 - inicio aula: 7:13pm     fim aula: 9:32pm                                 #
 ###############################################################################
 
 # FUNCOES ESPECIAIS
