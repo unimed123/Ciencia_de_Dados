@@ -622,7 +622,65 @@ Ja na funcao do.call() e ao contrario, primeiro utiliza-se a funcao depois o obj
 A funcao do.call(), soma-se todos os elementos, diferente do lapply() que soma apenas elemento a elemento de uma lista de objetos.
 
 
+[PACOTES]
 
+Pacotes R são uma maneira ideal para empacotar e distribuir o codigo R para que outros possam utiliza-los.
+O RStudio possui uma variedade de ferramentas que tornam o desenvolvimento do pacote R mais facil e produtivo, incluindo utilizacoes padroes.
+> Sao 3 (tres) grande grupos de pacotes R:
+
+# RBase <- coracao do R e contem as funcoes principais disponiveis quando inciamos o programa, os # pacotes recomendados # que sao instalados
+junto com o RBase, mas nao sao carregados quando iniciamos o programa, por exemplo:
+MASS e LaTex <- sao pacotes recomendados, para usarmos a funcao desses pacotes devemos carrega-los usando o comando library().
+
+# Cran <- sao pacotes contriluidos, nao sao instalados juntos com o RBase esses pacotes estao disponibilizados na pagina do R
+(http://cran.r-project.org), que deverao ser copiados, instalados e carregados. Acesse a pagina do cran, packages, constam mais de 8 mil pacotes.
+
+# GitHub <- plataforma que constam pacotes disponibilizados por usuarios do R.
+
+Os pacotes podem ser enviados ao cran, compartilhados pelo GitHub ou apenas usados como ferramentas de analise criado por voce.
+
+Conceitos de Pacotes <- "tudo o que pode ser automatizado, deve ser automatizado"
+Trabalhar menos com os detalhes (estrutura, etc) e mais com funcionalidades (funcoes uteis, etc).
+
+# search() <- lista todos os pacotes que estao carregados.
+
+# require() <-  faz a mesma coisa que o library(), porem podemos usar dentro de uma funcao para fazermos um pacote especifico.
+
+# detach() <- serve para remover um pacote na area de trabalho, explo: detach( package:NOME DO PACOTE).
+
+# attach() <- o Objetivo e anexar o dataset e com isso acessar os elementos, sem a necessidade de usar um nome especifico daquele dataset com o qual esta trabalhando.
+
+# ls() <- serve para verificar a lista de funcao dentro de um pacote, explo: ls(pas = "package: NOME DO PACOTE").
+
+# ls(getNamesspace('NOME DO PACOTE'), all.names = TRUE) <- serve para procurar uma funcao de um pacote.
+
+# ls.str('package:NOME DO PACOTE) <- disponibiliza os parametros especificos a serem utilizados.
+
+
+Criando Pacotes <- Para Criar Pacotes pode ser necessario ferramentas adicionais de desenvolvimento, no caso do Windows, instalar o Rtools.
+Podemos criar no RStudio nossos pacotes: NewProjects/RPackage (create New Package).
+
+
+<- Criacao de um pacote:
+clicar em:
+file/new project/R package:
+type:package
+package name: defina um nome para o seu pacote
+
+Pode adicionar/criar script R em:
+
+Create package based on Source files:
+
+Create project as subdirectory of:
+
+tambem pode colocar direto dentro do GitHub
+
+Creat project
+Clicar no menu superior Build/Opcao:
+configure Build Tools
+ou
+Build Check package
+Build reload.
 
 
 
