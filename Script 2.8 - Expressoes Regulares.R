@@ -1,7 +1,7 @@
 ###############################################################################
-# CURSO:  Forma��o Cientista de Dados        PLATAFORMA: Data Science Academy #
-# M�DULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
-# Data: 02/08/2016 - inicio aula: 8:13pm     fim aula: h:mmpm                                 #
+# CURSO:  Formação Cientista de Dados        PLATAFORMA: Data Science Academy #
+# MÓDULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
+# Data: 02/08/2016 - inicio aula: 8:13pm     fim aula: 9:53pm                                 #
 ###############################################################################
 
 # Expressoes Regulares
@@ -42,7 +42,7 @@ sub('em', 'EM', str)
 sub('em', 'EM', str, ignore.case = F)
 
 # regexpr()
-frase <- "Isso é uma string."
+frase <- "Isso Ã© uma string."
 regexpr(pattern = "u", frase)
 
 
@@ -50,7 +50,7 @@ regexpr(pattern = "u", frase)
 gregexpr(pattern = "u", frase)
 
 
-str2 <- c('2678 eh maior que 45 - @???!§$', 'vamos escrever 14 scripts R')
+str2 <- c('2678 eh maior que 45 - @???!Â§$', 'vamos escrever 14 scripts R')
 str2
 
 #gsub()
