@@ -1,7 +1,7 @@
 ###############################################################################
-# CURSO:  FormaÁ„o Cientista de Dados        PLATAFORMA: Data Science Academy #
-# M”DULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
-# Data: 25/10/2016 - inicio aula: 8:21pm     21/10/2016 - fim aula:9:55pm    #
+# CURSO:  Forma√ß√£o Cientista de Dados        PLATAFORMA: Data Science Academy #
+# M√ìDULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
+# Data: 25/10/2016 - inicio aula: 8:21pm     25/10/2016 - fim aula:9:55pm    #
 ###############################################################################
 
 
@@ -87,7 +87,7 @@ install.packages('heatmaply')
 library(heatmaply)
 heatmaply(mtcars, k_col = 2, k_row = 3) %>% layout(margin = list(l = 130, b=40))
 
-# Gr·fico interativo
+# Gr√°fico interativo
 install.packages('dygraphs')
 library(dygraphs)
 
