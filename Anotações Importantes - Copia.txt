@@ -682,6 +682,364 @@ ou
 Build Check package
 Build reload.
 
+[EXPRESOES REGULARES]
+
+Recurso usado para verificar se existe um padrao em uma string ou vetor de caracteres.
+Sao uma das mais importantes caracteristicas da linguagem R. Expresoes regulares sao nada mais que um conjunto de caracteres que formam padroes permitindo
+fazer buscas em strings.
+Voce pode utiliza-la para checar se um determinado padrao existe em um texto, substituir parte de um texto (qdo citamos texto estmaos falando de strings)
+ou mesmo para extrairmos padroes de um conjunto de dados. Sendo muito util, principalmente quando estiver limpando os dados ou trabalhando com text mining.
+
+Alguns importantes comandos:
+
+# grep() <- retorna TRUE quando um padrao e encontrado.
+# grepl() <- retorna um vetor de indices dos caracteres que contem o padrao especificado.
+
+# vetor e muito importante para um cientista de dados, em muitas operacoes que executa em R o retorno e um vetor de elementos #
+
+# sub() <- substitui o primeiro caracter encontrado de acordo com o padrao especificado.
+# gsub() <- substitui todos os caracteres encontrados de acordo com os padroes especificados.
+
+>> grep, grepl, sub, gsub, regexpr, gregexpr >> todos recebem como parametro o ## pattern##
+
+# pattern >> e o padrao, objetivo dessas funcoes e receber um padrao como parametro e buscar um padrao dentro de uma string, exatamente o conceito de mineracao
+de dados. 
+Mineracao de dados existe a decadas, porem o novo e o BigData, hoje o desafio e ser capaz de minerar esses dados, de buscar esses padroes em volume de dados cada
+vez maior, diversificados e gerados em uma maior velocidade.
+Ser capaz de extrair padroes, informacoes em um volume de dados e um desafio cada vez maior.
+
+[DATA HORA]
+
+O R fornece varias opcoes para trabalho com dados tipo data/hora, e acredite esses tipos de dados serao uns dos mais frequentes na analise de dados.
+As datas em seu conjunto de dados estarao nos mais variados formatos, pois, cada sistema implementa uma forma diferente de armazenar dados, elas podem estarem gravadas
+como strings, DD/MM/AA, DD/MM/AAAA H:M:S, etc.
+Trabalhar com datas e sempre um desafio, principalmente quando analisa series temporais.
+As datas sao representadas pela #class = date# e armazenadas como numero de dias desde 1/1/1970, apenas uma convencao que e adotada por muitos tipos de programacao, voce
+podera manipular datas anteriores a 1970, porem, internamente o R grava como valores negativos.
+Quando avaliarmos datas com H:M:S
+TIME - representado por POSIXct, armazenados internamente como numero e segundos, desde 1970.
+
+> # Formatando Datas
+# %d: dia do mes em 2 dígitos (13)
+# %m: mês em 2 digitos (01)
+# %y: ano em 2 digitos (82)
+# %Y: ano em 4 dígitos (1982)
+# %A: dia da semana (Friday)
+# %a: dia da semana abreviado (Fri)
+# %B: mês (July)
+# %b: mês abreviado (Jul)
+
+# Formatando Time
+# %H: hora (00-23)
+# %M: minuto
+# %S: segundo
+# %T: formado reduzido para %H:%M:%S
+
+> Pacote lubridate -> facilita a manipulacao de datas/horas em R, sendo bastante util. Utilizando o LUBRIDATE podemos extrair/incluir/zerar, etc.
+
+?strtime: funcao que permite fazer conversoes de datas, contem todos os % do formato data/hora.
+
+[GRAFICOS]
+
+Graficos em R - Base Plotting System
+A quantidade de dados que atravessa a internet a cada segundo e maior que todos os dados armazenados pelas empresas em 20 anos. E como uma empresa
+armazenasse 1hexbite de daos por dia, todos os dias, se voce tentasse visualizar esses dados de sua empresa esse exercicio duraria apenas alguns
+segundos, e logo voce estaria perdido em meio a tantos dados.
+O cerebro humano e incapaz de processar uma quantidade de informacoes simultaneamente, mas o propio ser humano criou algo para resolver com eficiência
+a visualizacao dos dados.
+Visualizacao de dados:
+E a representacao de dados em forma de graficos, seu objetivo e simplificar a analise de dados e promover uma compreensao mais clara facilitando o conceito
+de ideia. Podemos informar bilhoes de dados e informacoes em 1 folha, sem a aplicacao de tecnica de visualizacao de dados e praticamente impossivel.
+A visualizacao de dados e um tema que se tornara mais necessario no futuro muito proximo. Graficos, tabelas e estatisticas tornam a compreencao dos dados 
+muito mais facil.
+Visualicao de dados (Data Visualization) (DataViz)
+O que sao graficos? -> grafico e uma representacao com forma geometrica construida de maneira exata e precisa a partir de informacoes numericas obtidas atraves
+de pequisas e organizadas em uma tabela.
+E como o R trata as visualizacoes? -> Existe um consenso na comunidade data science, que o R fornece uma das melhores ferramentas para a geracao de graficos.
+Os graficos podem ser modificados, publicados em apenas algumas linhas de codigo.
+
+-> Pacote Basico de Plotagem (Base Plotting System) e composto de dois pacotes:
+# graphics - contem funcoes graficas basicas, incluindo plot, hist e boxplot.
+# gr Devices - contem as implementacoes de dispositivos graficos com X11, pdf, postScript, png, etc. Os plots sao objetos construidos atraves de funcoes e com 
+atributos.
+
+-> Graficos em R (Basic Plotting System) - colunas, barras, linha, dispersao, area, bolhas, superficie, cone e pizza. Um conjunto de elementos que formam a 
+capacidade basica do R de construir graficos.
+
+O cientista de dados, deve e pode visualizar os graficos ao longo de todo o processo e nao apenas no final ao concluir a avaliacao da base de dados.
+
+-> Gramatica do graficos - e utilizada para descrever as caracteristicas que fundamentam todos os graficos, principalmente os graficos estatísticos. A gramatica
+dos graficos pode nos reponder, por exemplo: o que e um grafico estatistico? Em resumo nos diz que e um mapeamento de dados para a estetica (cor, forma, tamanho...)
+de objetos geometricos como (pontos, linhas, barras...) existem 7 elementos que compoem a gramatica dos graficos:
+
+Elementos
+Dados -------------> O conjunto de dados a ser analisado;
+Estetica ----------> A escala em que nos mapeamos os dados;
+Geometria ---------> Os elementos visuais usados para representar os dados;
+Facets ------------> Visualizar o grafico em porcoes menores;
+Estatistica -------> Representacao e analise dos dados;
+Coordenadas -------> A área na qual o grafico sera construido;
+Temas -------------> Visual geral do grafico.
+
+# Usando R para Importacao
+
+Introducao
+
+Parte 1                    
+-Vetores                   
+-Listas
+-Dataframe
+-Strings
+
+Parte 2
+-Objetos { Funcao, data, hora}
+-Padrao { Funcoes regulares, DataMining}
+-Visualizacao {Plot R, Ggplot, Lates, Criacao Maps}
+
+Parte 3
+-Tazer dados para o R importar e tratar
+
+De onde importamos os dados para o R?
+Nao existe nenhuma ferramenta 100% para utilizarmos, vamos utilizar o que de melhor cada ferramenta oferecer.
+
+No curso teremos dados das seguintes fontes:
+
+-> arquivos textos - flat files (txt, csv)
+-> arquivos excel - (xls, xlsx)
+-> banco de dados - (Oracle, Sql server, MySQL, PostgreSQL, SQLlite)
+-> software estatisticos - (SAS, SPSS, Sdata)
+-> dados internet - (web crawling)
+
+#LIMPEZA E ORGANIZACAO#
+
+O que estudar:
+
+-> pacotes para importacao e tratamento de arquivos txt, csv;
+-> pacotes para importacao e manipulacao de arquivos Excel;
+-> importar e tratar dados do SQLite;
+-> importar e tratar dados do MySQL;
+-> importar e tratar dados do MongoDB;
+-> limguagem SQL;
+-> limpeza e organizacao de dados com dlplyr e tidyr.
+
+#IMPORTACAO E MANIPULACAO DE DADOS#
+
+Em geral o sistema estatistico R, nao sao adequados a manipulacao de dados em grande escala, alguns outros sistemas sao melhores
+do que o R nisso. O sistema de gerenciamento de banco de dados por exemplo sao mais adequados para armazenar e permitir extracao
+de dados tal como a relacao de banco de dados relacionais, bancos noSQL, e solucoes de bigdata como o Hadoop. Ou seja, o R nao tem
+como objetivo o armazenamento de dados, o R e uma ferramenta de analise e para isso voce precisa trazer os dados para o R, processar
+sua analise e depois seguir com os dados para armazenamento, seja em um banco de dados ou em arquivo texto.
+A maior parte do seu tempo sera usado na preparacao dos dados, e muito raro que um conjunto de dados brutos esteja no formato correto,
+mesmo quando importamos isso de um sistema confiavel, como o sistema ERP, por exemplo, e o formato que pode ser correto para o sistema,
+pode nao ser o ideal para a analise de dados.
+
+Veremos as manipulacoes dos arquivos csv, txt e Excel.
+
+#Arquivos textos ou FlatFiles (TXT, CSV)
+Sao uma das formas mais antigas de integracao de sistemas.
+
+#Manipulacao de arquivos
+O R apresenta 3 pacotes principais para carga de dados apartir de arquivos textos:
+-> utils();
+-> readr();
+-> data.table().
+
+Normalmente causa alguma confusao a quantidade de funcoes disponiveis para importar arquivos textos no R, esta tabela ajuda a explicar
+um pouco essa diferença:
+
+Pacote utils() -> read.table(); read.csv(); read.delim()
+Pacote readr() -> read_table(); read_csv(); read_delim()
+
+Usaremos 2 (dois) pacotes, o utils() ja vem com o R e o readr() que foi desenvolvido por um desenvolvedor do RStudio a mais 1 (um) ano today(071116).
+Como visto as funcaoes dos pacote utils() e o readr() sao muito parecidos.
+Tambem temos o
+Pacote data.table() -> fread()
+fread() utilizaremos no capitulo de bigdata na pratica, visto que importa mais rapido grandes bases de dados.
+
+#Pacote utils():
+O pacote utils(), que e automaticamente carregado na sua sessao R, pode importar arquivos simples em diferentes formas, atraves das funcoes:
+
+read.csv - para valores separados por (,) e (.) como separador decimal;
+read.csv2 - para valores separados por (;) e (,) como separador decimal;
+read.delim - para valores separados por (tab) e (.) como separador decimal;
+read.delim2 - para valores separados por (tab) e (,) como separador decimal;
+read.fwf - para valores com nº exato de bytes por coluna.
+
+Basicamente a diferenca das funcoes esta no tipo de caracter usado para separar os campos e o tipo de caracter usado no nº decimais.
+
+read.table - muito util quando se esta fazendo a leitura de arquivos ASCII, que contem dados em formato retangular.
+O arquivo de simples texto ou arquivo do ingles ASCII ((do inglês American Standard Code for Information Interchange; "Código Padrão 
+Americano para o Intercâmbio de Informação") é um código binário (cadeias de bits: 0s e 1s) que codifica um conjunto de 128 sinais: 
+95 sinais gráficos (letras do alfabeto latino, sinais de pontuação e sinais matemáticos) e 33 sinais de controle, utilizando portanto 
+apenas 7 bits para representar todos os seus símbolos.
+ASCII - letras, nº e outros simbolos legiveis, segundo um padrao que e universalmente aceito, arquivos deste tipos podem ser manipulados
+diretamente por usuarios atraves de editor de texto por exemplo.
+E seu conteudo corresponde ao padrao aberto e bem conhecidos de todos, portanto, o R tem padrao nativo para arquivos em formato ASCII, que
+voce encontra em todos os sistemas informatizados disponiveis no mercado.
+
+Formula de configurar a funcao read.table()
+read.table("arquivo.txt", header = TRUE, sep = "," , StringAsFactors = FALSE)
+read.table("arquivo.txt", header = TRUE, sep = "\t" , StringAsFactors = FALSE)
+
+header = arquivo tem ou nao cabecalho.
+
+Formula de configurar a funcao read.csv()
+read.csv("arquivo.txt", StringAsFactors = FALSE)
+read.csv2("arquivo.txt",  sep = ";" , dec = "," , StringAsFactors = FALSE)
+
+Formula de configurar a funcao read.delim()
+read.table("arquivo.txt")
+read.table2("arquivo.txt")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
