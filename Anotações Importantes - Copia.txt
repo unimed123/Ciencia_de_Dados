@@ -888,8 +888,42 @@ read.csv("arquivo.txt", StringAsFactors = FALSE)
 read.csv2("arquivo.txt",  sep = ";" , dec = "," , StringAsFactors = FALSE)
 
 Formula de configurar a funcao read.delim()
-read.table("arquivo.txt")
-read.table2("arquivo.txt")
+read.delim("arquivo.txt")
+read.delim2("arquivo.txt")
+Onde voce tem um delimitador especifico entre os campos pode ser um caracter (espaco), (tab), (PIP) e assim por adiante.
+
+#Parametros:
+Todas essas funcoes possuem parâmetros.
+
+-> header - define se o arquivo com/sem cabecalho;
+-> Col.names - vetor de caracter, onde voce pode definir um nome para as colunas no momento da importacao.
+-> na.String - define se uma string será ou nao substituida por valores NA.
+-> Col.Classes - permite definir o tipo de dados que sera gerado no R no momento da importacao.
+-> sep - separador de colunas.
+-> StringsAsFactors - permite converter ou nao uma coluna do tipo String para fator, classificando as variaveis categoricas.
+
+#Pacote readr():
+
+Este e um pacote novo, foi criado em meados de 2014, o pacote readr fornece funcoes para leitura de dados de texto, funcoes mais rapidas 
+do que visto ate agora, motivo porque sao baseadas em linguagem C++.
+
+O pacote readr() precisa ser instalado, pois nao e nativo do R, foi desenvolvido pelos desenvolvedores do R Studio.
+As funcoes deste pacote sao as mesmas do utils() que vimos anteriormente, a diferenca e o anderlaine (_) ao inves do ponto (.).
+Note que a diferenca e minima entre os pacote, pporem, reduz em mai de 30 segundos o tempo de carregamento de arquivos.
+
+Formula de configurar a funcao read.table()
+read_table("arquivo.txt", Col_names = c("day", "month", "year", "temp"))
+
+Eh muito parecido com o utils() a diferenca sao os codigos interno.
+
+#Manipular arquivos em Excel:
+
+Pacote XLConnect > #requer o Java instalado#
+loadWorkbook()
+getSheets()
+readWorksheet()
+CreatSheet()
+WriteWorkSheet()
 
 
 
