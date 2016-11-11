@@ -925,6 +925,189 @@ readWorksheet()
 CreatSheet()
 WriteWorkSheet()
 
+#Pacote XLSX
+read.xlsx(file, sheetIndex, header=TRUE, colClasses=NA)
+read.xlsx2(file, sheetIndex, header=TRUE, colClasses='character')
+
+Baseado em Java
+
+#Pacote readxl
+read_excel()
+Excel_sheets()
+
+Sua principal vantagem e que nao possue dependencia, alem de ser bem veloz.
+
+Outro pacote para entegir com o Excel é o:
+
+#Pacote gdata
+read.xls()
+
+Atencao aos detalhes:
+-> Em seus arquivos, evite espacos em branco e nº com titulo para as colunas;
+-> Normalmente, a primeira linha de cada arquivo e o cabecalho, a lista de nomes para cada coluna;
+-> Para a concatenacao de palavras, utilizar ponto(.) ou hifen(_);
+-> Use nomes curtos para linhas e colunas;
+-> Evite o uso de caracteres especiais;
+-> Dados, NA, podem existir no seu conjunto de dados e isso sera tratado no processo de limpeza.
+
+Alem disso outras caracteristicas de arquivos sao importantes, tais como:
+-> Encoding;
+-> Linha de cabecalho;
+-> Separador de coluna;
+-> Quoting (aspas);
+-> Missing value;
+-> Linhas em branco;
+-> Espacos em branco em campos do tipo caracter;
+-> comentarios.
+Todas essas itens necessitam de atencao durante a manipulacao de dados.
+
+Existem tambem outros pacotes no R para manipilacao de dados
+#Pacotes para importacao de arquivos:
+-> rjon - leitura de arquivos json para o R;
+-> xml - leitura de arquivos xml;
+-> httr - leitura de arquivos html para o R;
+-> Rcurl - web Crawling;
+-> foreign - leitura de arquivos do SPSS, SAS;
+-> SAS7bdat - SAS.
+
+#Funcao data.table
+Fornece um rapido processo de carga de dados, pois as funcoes reconhecem automaticamente os parametros dos arquivos e decidem a melhor forma de carga.
+fread()
+
+Resumindo:
+Temos um grupo de funcoes para manipular arquivos texto do tipo txt, csv e um conjunto de pacotes e todas as suas funcoes para manipulacao de arquivos em Excel.
+
+#Manipulacao de arquivos txt e csv:
+-> Package utils - read.table(); read.csv(); read.delim()
+-> Package readr - read_table(); read_csv(); read_delim()
+-> Package data.table - fread()
+
+#Manipulacao de arquivos em excel:
+XLConnect;
+XLSX;
+readxl;
+gdata;
+r2excel.
+
+#BAIXAR EDITOR SUBLIMETEXT2# muda a coloracao conforme muda o script.
+
+#Funcao -> list.files() utilizado para saber o que tem dentro do diretorio
+Quando tiver arquivos muito grande, pode guardar o arquivo como zip em um diretorio na internet, podera fazer o download do arquivo unzip, faz o seu trabalho 
+com isso importa o dataframe para execucao.
+
+#Funcao -> file.choose() serve para selecionar o arquivo, nao precisa escrever mais o nome:
+meu_arquivo <- read_csv(file.choose())
+Pode realizar o mesmo procedimento informando o caracter do arquivo que ira selecionar:
+meu_arquivo <- read_csv(file.choose(), sep=";")
+Com a funcao file.choose(), nao precisa mais passsar o nome do arquivo, pode apenas executar, abrira um 'pront'(lista de todos os arquivos), com isso selecionar
+o arquivo diretamente, sem precisar especificar diretamente qual o nome do arquivo. MUITO INTERESSANTE.!
+
+#head() - serve para observar os arquivos que foram importados.
+
+#str() - ao importar, verifique como esta o arquivo, analise os tipos de dados e variaveis existente, se e integer ou character, se veio de uma coluna como fator ou nao.
+Isso e super importante porque ira afetar seu processo de analise.
+
+#read_lines("arquivo.txt", skip=0, n_max=-1L)
+serve para ler linha a linha ate o final do arquivo.
+
+#read_file("arquivo.txt")
+utilizado para uma visualizacao rapida do arquivo e os caracteres com \n (significa final de linha).
+
+#Alterar a classificacao da variavel, utilizar a funcao read_csv, exemplo:
+df_iris <- read_csv("iris.csv", col_types = list(
+                   Sepal.Length = col_double(),
+                   Sepal.Width = col_double(),
+                   Sepal.Length = col_double(),
+                   Petal.Width = col_double(),
+                   Species = col_factor (c("setosa", "versicolor"))
+Pode realizar no momento da importacao do seu arquivo .csv, realizar as transformacaoes e com isso economizar tempo facilitando o trabalho.
+
+As funcoes read_csv permite importar o arquivo diretamente.
+df_cad <- read_csv("http://datascience...")
+head(dd_cad)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
