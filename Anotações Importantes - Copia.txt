@@ -1026,6 +1026,96 @@ As funcoes read_csv permite importar o arquivo diretamente.
 df_cad <- read_csv("http://datascience...")
 head(dd_cad)
 
+tbl_df -> tambem utilizado no pacote 'dplyr'
+tbl_df -> E um tipo de dataframe mas formatado dentro do R como tabela, ele tem caracteristicas proprias principalmente no tratamento de dados em memoria.
+
+View() utilizada para visualizar a bd em formato de tabela.
+
+backup
+Quando trabalhamos com dados e importante ir salvando os arquivos do trabalho em csv.
+write.csv(df.cad, "df_cad_bkp.csv")
+df_cad nome do esta trabalhando como exemplo.
+
+Salvar varios arquivos simultaneamente.
+list.files()
+
+Mostrar a lista de arquivos que estao no diretorio:
+lista_arquivos <- list.files('caminho do arquivos')
+class(lista_arquivos)
+lista_arquivos - gera problema quando ha extensao diferente
+
+lista_arquivos2 <- lapply(lista_arquivos, read_csv)
+quando gerar a lista de ERROR ou WARNING, lista a funcao:
+problems(lista_arquivos2)
+Ira especificar alguns dos problemas, com isso ajuda na identificacao do problemas que tenha na importacao de 1(um) ou mais arquivos.
+
+Outra funcao tambem util e:
+#Parsing
+parse_date("01/02/2015", "%m/%d/%y")
+como ja vimos nossa string de data precisa estar formatada para que possamos converter em objeto tipo data.
+
+Antes de salvar o arquivo que estiver importando podera utilizar o parse_date() dentro das suas funcoes de importacao ou exportacao.
+
+Outro recurso interessante e o :
+locale() dependendo do idioma com o qual estiver trabalhando seus arquivos, voce pode utilizar o locale() com isso especificar o idioma
+exato e evitar possiveis erros de conversao.
+locale("in")
+locale("fr")
+locale("pt")
+
+Importar grandes arquivos de dados
+#http://www.bigememory.org
+installpackages("bigmemory")
+library("bigmemory")
+
+
+O R nao trabalha bem com arquivos grandes, mas existe alguns projetos visando preparar o R para tratar arquivos do tamanho do bigdata.
+Um dos trabalhos do cientista de dados e conhecer as novidades, interagir com os novos pacotes e nao ficar preso ao que todo mundo faz.
+PENSAMENTO DE HACKER
+-> cran
+-> rbloger
+-> carga de dados
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
