@@ -1,0 +1,78 @@
+﻿###############################################################################
+# CURSO:  Formação Cientista de Dados        PLATAFORMA: Data Science Academy #
+# MÓDULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
+# Data: 28/11/2016 - inicio aula: 7:08 pm     dd/mm/2016 - fim aula::pm       #
+###############################################################################
+
+          
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 5.7.13-log MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use titanicDB;
+Database changed
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| titanicdb          |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE titanic (
+         pclass char(3),
+          survived char(1),
+          name varchar(100),
+          sex char(6),
+          age char(11),
+          sibsp varchar(16),
+          parch varchar(16),
+          ticket varchar(20),
+          fare varchar(100),
+          cabin varchar(16),
+          embarked varchar(12),
+          boat varchar(50),
+          body varchar(32),
+          home_dest varchar(200)
+          );
+ERROR 1050 (42S01): Table 'titanic' already exists
+mysql> desc titanic;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| pclass    | char(3)      | YES  |     | NULL    |       |
+| survived  | char(1)      | YES  |     | NULL    |       |
+| name      | varchar(100) | YES  |     | NULL    |       |
+| sex       | char(6)      | YES  |     | NULL    |       |
+| age       | char(11)     | YES  |     | NULL    |       |
+| sibsp     | varchar(16)  | YES  |     | NULL    |       |
+| parch     | varchar(16)  | YES  |     | NULL    |       |
+| ticket    | varchar(20)  | YES  |     | NULL    |       |
+| fare      | varchar(100) | YES  |     | NULL    |       |
+| cabin     | varchar(16)  | YES  |     | NULL    |       |
+| embarked  | varchar(12)  | YES  |     | NULL    |       |
+| boat      | varchar(50)  | YES  |     | NULL    |       |
+| body      | varchar(32)  | YES  |     | NULL    |       |
+| home_dest | varchar(200) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+14 rows in set (0.00 sec)
+
+mysql> LOAD DATA INFILE 'C:\RFundamentos\Parte_3\titanic.csv'
+     INTO TABLE titanic
+     FIELDS TERMINATED BY ','
+     ENCLOSED BY '"'
+     LINES TERMINATED BY '\n'
+     IGNORE 1 ROWS;
