@@ -1,78 +1,246 @@
-﻿###############################################################################
-# CURSO:  Formação Cientista de Dados        PLATAFORMA: Data Science Academy #
-# MÓDULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
-# Data: 28/11/2016 - inicio aula: 7:08 pm     dd/mm/2016 - fim aula::pm       #
-###############################################################################
+﻿Bancos de Dados MySQL - 
+Linguaagem SQL
 
-          
-Enter password: *********
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 14
-Server version: 5.7.13-log MySQL Community Server (GPL)
 
-Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+# Conexão ao gerenciador de banco de dados
+/usr/local/mysql/bin/mysql -
+uroot -p
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+# Mostra todos os bancos de dados
+show databases;
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> use titanicDB;
-Database changed
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-| titanicdb          |
-+--------------------+
-5 rows in set (0.00 sec)
+# Cria um banco de dados
+CREATE DATABASE titanicDB;
 
-mysql> CREATE TABLE titanic (
-         pclass char(3),
-          survived char(1),
-          name varchar(100),
-          sex char(6),
-          age char(11),
-          sibsp varchar(16),
-          parch varchar(16),
-          ticket varchar(20),
-          fare varchar(100),
-          cabin varchar(16),
-          embarked varchar(12),
-          boat varchar(50),
-          body varchar(32),
-          home_dest varchar(200)
-          );
-ERROR 1050 (42S01): Table 'titanic' already exists
-mysql> desc titanic;
-+-----------+--------------+------+-----+---------+-------+
-| Field     | Type         | Null | Key | Default | Extra |
-+-----------+--------------+------+-----+---------+-------+
-| pclass    | char(3)      | YES  |     | NULL    |       |
-| survived  | char(1)      | YES  |     | NULL    |       |
-| name      | varchar(100) | YES  |     | NULL    |       |
-| sex       | char(6)      | YES  |     | NULL    |       |
-| age       | char(11)     | YES  |     | NULL    |       |
-| sibsp     | varchar(16)  | YES  |     | NULL    |       |
-| parch     | varchar(16)  | YES  |     | NULL    |       |
-| ticket    | varchar(20)  | YES  |     | NULL    |       |
-| fare      | varchar(100) | YES  |     | NULL    |       |
-| cabin     | varchar(16)  | YES  |     | NULL    |       |
-| embarked  | varchar(12)  | YES  |     | NULL    |       |
-| boat      | varchar(50)  | YES  |     | NULL    |       |
-| body      | varchar(32)  | YES  |     | NULL    |       |
-| home_dest | varchar(200) | YES  |     | NULL    |       |
-+-----------+--------------+------+-----+---------+-------+
-14 rows in set (0.00 sec)
 
-mysql> LOAD DATA INFILE 'C:\RFundamentos\Parte_3\titanic.csv'
-     INTO TABLE titanic
-     FIELDS TERMINATED BY ','
-     ENCLOSED BY '"'
-     LINES TERMINATED BY '\n'
-     IGNORE 1 ROWS;
+
+# Habilita a sessão para o banco de dados
+use titanicDB;
+
+
+
+# Cria tabela
+
+CREATE TABLE titanic (
+	pclass char(3),
+	
+                        survived char(1), 
+                 
+	name varchar(100),
+	
+                        sex char(6),
+	
+                        age char(11),
+
+                      	sibsp varchar(16),
+	
+                        parch varchar(16),
+	
+                        ticket varchar(20),	
+             	
+	fare varchar(100),
+	
+                        cabin varchar(16),
+
+                	embarked varchar(12),
+
+                   	boat varchar(50),
+	
+                        body varchar(32),
+	
+                        home_dest varchar(200)
+);
+	
+	
+
+# Carrega os dados do arquivo csv na tabela
+LOAD DATA INFILE '/opt/DSA/RFundamentos/Parte3/titanic.csv' 
+
+INTO TABLE titanic
+
+FIELDS TERMINATED BY ',' 
+
+ENCLOSED BY '"'
+
+LINES TERMINATED BY '\n'
+
+IGNORE 1 ROWS;
+
+
+
+# Instruções
+ select
+select name, age, sex, pclass from titanic where age > 70;
+
+ select name, age from titanic where age > 70;
+
+ select pclass, survived, avg(age) as media from titanic group by pclass, survived;
+
+
+
+
+# Cria outro banco de dados
+CREATE DATABASE cadastroDB;
+
+
+
+# Habilita a sessão para o banco de dados
+use cadastroDB;
+
+
+
+# Cria tabela
+
+CREATE TABLE FUNCIONARIOS(
+ID   INT NOT NULL,
+  
+                          NOME VARCHAR (20) NOT NULL,
+
+                          IDADE  INT NOT NULL,
+                       
+   CIDADE  CHAR (25),
+                       
+   SALARIO   DECIMAL (18, 2),
+                       
+   PRIMARY KEY (ID)
+);
+
+
+
+# Descreve a tabela
+DESC FUNCIONARIOS;
+
+
+
+# Instruções insert
+
+INSERT INTO FUNCIONARIOS (ID,NOME,IDADE,CIDADE,SALARIO)
+VALUES (1, 'Pele', 32, 'Roma', 2000.00 );
+
+
+INSERT INTO FUNCIONARIOS (ID,NOME,IDADE,CIDADE,SALARIO)
+VALUES (2, 'Zico', 25, 'Paris', 1500.00 );
+
+
+INSERT INTO FUNCIONARIOS (ID,NOME,IDADE,CIDADE,SALARIO)
+VALUES (3, 'Rivelino', 23, 'Santiago', 4000.00 );
+
+
+INSERT INTO FUNCIONARIOS (ID,NOME,IDADE,CIDADE,SALARIO)
+VALUES (4, 'Garrincha', 25, 'Vienna', 6500.00 );
+
+
+INSERT INTO FUNCIONARIOS (ID,NOME,IDADE,CIDADE,SALARIO)
+VALUES (5, Jair', 64, 'Vienna', 7800.00 );
+
+
+
+# Esse registro gera erro de duplicidade
+
+INSERT INTO FUNCIONARIOS (ID,NOME,IDADE,CIDADE,SALARIO)
+VALUES (5, 'Careca', 25, 'Milao', 8900.00 );
+
+
+INSERT INTO FUNCIONARIOS (ID,NOME,IDADE,CIDADE,SALARIO)
+VALUES (6, 'Careca', 25, 'Milao', 8900.00 );
+
+
+
+# Instruções 
+select
+select * 
+from FUNCIONARIOS;
+
+
+select nome, salario from FUNCIONARIOS;
+
+
+SELECT ID, NOME, SALARIO 
+FROM FUNCIONARIOS
+WHERE SALARIO > 2000;
+
+
+
+SELECT ID, NOME, SALARIO 
+FROM FUNCIONARIOS
+WHERE NOME = 'Zico';
+
+
+
+SELECT ID, NOME, SALARIO 
+FROM FUNCIONARIOS
+WHERE SALARIO > 2000 AND IDADE < 55;
+
+
+
+
+# Instrução Update
+UPDATE FUNCIONARIOS
+SET cidade = 'Boston'
+WHERE ID = 6;
+
+
+
+# Instrução Delete
+DELETE FROM FUNCIONARIOS
+WHERE ID = 6;
+
+
+
+# Instruções select
+select distinct cidade from FUNCIONARIOS;
+
+
+select count(*) 
+from FUNCIONARIOS;
+
+
+select cidade, sum(salario) from FUNCIONARIOS group by cidade;
+
+
+select cidade, sum(salario) from FUNCIONARIOS group by cidade having sum(salario) > 2000;
+
+
+
+# Cria índice
+create index cidade_idx on FUNCIONARIOS(cidade);
+
+
+
+# Mostra os índices
+SHOW INDEX FROM funcionarios;
+
+
+
+# Cria uma tabela a partir de outra tabela
+create table funcionarios_bkp
+as
+ select * from funcionarios;
+ 
+
+select * from funcionarios_bkp;
+
+
+
+# Remove a tabela
+drop table funcionarios_bkp;
+
+
+
+# Remove o banco de dados
+drop database titanicDB;
+
+drop database cadastroDB;
+
+
+
+
+
+
+
+
+
+
+
+
