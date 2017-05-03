@@ -15,28 +15,28 @@ library(readr)
 library(dplyr)
 
 # Suprimindo mensagens de warning
-searchpaths()
-suppressMessages(library(dplyr))
+searchpaths() # caminho aonde voce inclui o diretorio direto completo de um determindo programa
+suppressMessages(library(dplyr)) # pode suprimir o searchpaths e cada vez que carregar a mensagem nao aparecera, mas na real e importante deixar expor a mensagem, vai que alguma coisa chame a atencao.
 
 
 # Carregando o dataset
 df_sono <- read_csv("http://datascienceacademy.com.br/blog/aluno/RFundamentos/Datasets/Parte3/sono.csv")
 head(df_sono)
-class(df_sono)
+class(df_sono) # "tbl_df" objeto novo nao tinhamos visto antes, na verdade e um dataframe especifico criado pelo pacote dplyr, nada mais e que um dataframe com algumas caracteristicas especiais.
 str(df_sono)
 
-glimpse(df_sono) #dar uma olhada, uma pequena visao
-glimpse(mutate(df_sono, peso_libras = sono_total / 0.45359237)) #mutate - calcule e acrescente 1 ou + colunas
+glimpse(df_sono) #dar uma olhada, uma pequena visao, tem a mesma funcao do str mas e uma fucao especifica do dplyr
+glimpse(mutate(df_sono, peso_libras = sono_total / 0.45359237)) # obom da funcao glimpse e que podemos olhar um objeto sem precisarmos criar o objeto
 
-count(df_sono, cidade)
+count(df_sono, cidade) # ela verifica para um determinado dataframe, quantas vezes uma determinada observacao aparece
 hist(df_sono$sono_total)
 
 
-# Mostrar o autocomplete
-?sample_n
+# Mostrar o autocomplete # gera uma amostra de autocomplete, apresenta qual pacote representa determina funcao
+?sample_n # permite coletar uma amostra em um conjunto de dados.
 sample_n(df_sono, size = 10)
 
-# select() seleciona as colunas ou auxiliares
+# select() seleciona as colunas ou auxiliares, para demonstrar um subset de dados, igual ao select da linguagem SQL
 sleepData <- select(df_sono, nome, sono_total)
 head(sleepData)
 class(sleepData)
@@ -44,11 +44,11 @@ select(df_sono, nome)
 select(df_sono, nome:cidade)
 
 
-# filter() permite extrair as linhas que satisfaça determinado criterio.
+# filter() permite extrair as linhas que satisfaça determinado criterio. No SQL e a clausula WHERE
 filter(df_sono, sono_total >= 16)
 filter(df_sono, sono_total >= 16, peso >= 80)
-filter(df_sono, cidade %in% c("Recife", "Curitiba"))
-
+filter(df_sono, cidade %in% c("Buenos Aires", "Porto Alegre")) # retorne os dados onde a cidade estiver dentro deste conjunto de dados..c()
+filter(df_sono, nome %in% c("Marta", "Rodolfo"))
 
 # arrange() ordena as linas pelo valor de uma coluna
 df_sono %>% arrange(cidade) %>% head
