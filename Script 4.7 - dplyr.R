@@ -1,7 +1,7 @@
 ###############################################################################
 # CURSO:  Formação Cientista de Dados        PLATAFORMA: Data Science Academy #
 # MÓDULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
-# Data: 02/05/2017 - inicio aula: 008:16 pm     dd/mm/2016 - fim aula::pm      #
+# Data: 02/05/2017 - inicio aula: 008:16 pm     15/05/2016 - fim aula:08:37pm      #
 ###############################################################################
 
 
@@ -36,11 +36,14 @@ hist(df_sono$sono_total)
 ?sample_n # permite coletar uma amostra em um conjunto de dados.
 sample_n(df_sono, size = 10)
 
+
+
+
 # select() seleciona as colunas ou auxiliares, para demonstrar um subset de dados, igual ao select da linguagem SQL
-sleepData <- select(df_sono, nome, sono_total)
+sleepData <- select(df_sono, nome,cidade, sono_total)
 head(sleepData)
 class(sleepData)
-select(df_sono, nome)
+select(df_sono, nome:sono_total)
 select(df_sono, nome:cidade)
 
 
@@ -50,7 +53,7 @@ filter(df_sono, sono_total >= 16, peso >= 80)
 filter(df_sono, cidade %in% c("Buenos Aires", "Porto Alegre")) # retorne os dados onde a cidade estiver dentro deste conjunto de dados..c()
 filter(df_sono, nome %in% c("Marta", "Rodolfo"))
 
-# arrange() ordena as linas pelo valor de uma coluna
+# arrange() ordena as linas pelo valor de uma coluna, arrange organiza no caso as cidades por valores
 df_sono %>% arrange(cidade) %>% head
 
 df_sono %>% 
