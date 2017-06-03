@@ -81,21 +81,21 @@ For i = 1 To n_abas
 On erro GoTo fim:
     Select Case a
     a = 1
-     Sheets(i).Protect ("scprev@plan")
+     Sheets(i).Protect 1
     a = 2
-     Sheets(i).Protect ("654987simu")
+     Sheets(i).Protect 1
     a = 3
-     Sheets(i).Protect ("654987simu")
+     Sheets(i).Protect 1
     End Select
 fim:
 Next i
     Select Case a
     a = 1
-      ActiveWorkbook.Protect ("scprev@plan")
+      ActiveWorkbook.Protect 1
     a = 2
-      ActiveWorkbook.Protect ("654987simu")
+      ActiveWorkbook.Protect 1
     a = 3
-      ActiveWorkbook.Protect ("654987simu")
+      ActiveWorkbook.Protect 1
     End Select
 End Sub
 Sub PROTEGER_DATA_A()
@@ -106,22 +106,22 @@ For i = 1 To n_abas
 On erro GoTo fim:
     Select Case a
     a = 1
-     Sheets(i).Protect ("scprev@plan")
+     Sheets(i).Protect 1
     a = 2
-     Sheets(i).Protect ("654987simu")
+     Sheets(i).Protect 1
     a = 3
-     Sheets(i).Protect ("654987simu")
+     Sheets(i).Protect 1
     End Select
 fim:
 Next i
 If MsgBox("Abas protegidas. Deseja proteger TAMBÉM a pasta de trabalho?", vbYesNo) = vbYes Then
     Select Case a
     a = 1
-      ActiveWorkbook.Protect ("scprev@plan")
+      ActiveWorkbook.Protect 1
     a = 2
-      ActiveWorkbook.Protect ("654987simu")
+      ActiveWorkbook.Protect 1
     a = 3
-      ActiveWorkbook.Protect ("654987simu")
+      ActiveWorkbook.Protect 1
     End Select
 
 End If
