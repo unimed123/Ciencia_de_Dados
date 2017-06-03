@@ -1,0 +1,224 @@
+Sub Repetir_nome_arquivo()
+n_arquivos = Sheets("Lista").Cells(2, 4)
+Sheets("plan3").Select
+For i = 1 To n_arquivos
+    Range("A1").End(xlDown).Offset(0, 0).Select
+    Range(Selection, Selection.End(xlDown).Offset(-1, 0)).Select
+    Selection.FillDown
+    'Range("A2").End(xlDown).Offset(0, 0).Select
+Next i
+End Sub
+
+Sub MacroSubstituindoAcentos()
+
+    Dim CAcento(1 To 47) As String
+    Dim SAcento(1 To 47) As String
+    
+    For i = 1 To 47
+        CAcento(i) = Mid("àáâãäèéêëìíîïòóôõöùúûüÀÁÂÃÄÈÉÊËÌÍÎÒÓÔÕÖÙÚÛÜçÇñÑ", i, 1)
+        SAcento(i) = Mid("aaaaaeeeeiiiiooooouuuuAAAAAEEEEIIIOOOOOUUUUcCnN", i, 1)
+    Next i
+    
+    For i = 1 To 47
+        Selection.Replace What:=CAcento(i), Replacement:=SAcento(i), LookAt:=xlPart, SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Next i
+
+End Sub
+
+
+Sub Reexibir_todas()
+ 
+n_abas = ActiveWorkbook.Sheets.Count
+   
+For i = 1 To n_abas
+    On erro GoTo fim:
+    Sheets(i).Visible = True
+fim:
+Next i
+ 
+End Sub
+Sub Quebra_senha()
+ 
+Dim i, i1, i2, i3, i4, i5, i6 As Integer, j As Integer, k As Integer, l As Integer, m As Integer, n As Integer
+On Error Resume Next
+For i = 65 To 66
+For j = 65 To 66
+For k = 65 To 66
+For l = 65 To 66
+For m = 65 To 66
+For i1 = 65 To 66
+For i2 = 65 To 66
+For i3 = 65 To 66
+For i4 = 65 To 66
+For i5 = 65 To 66
+For i6 = 65 To 66
+For n = 32 To 126
+ActiveSheet.Unprotect Chr(i) & Chr(j) & Chr(k) & Chr(l) & Chr(m) & Chr(i1) & Chr(i2) & Chr(i3) & Chr(i4) & Chr(i5) & Chr(i6) & Chr(n)
+If ActiveSheet.ProtectContents = False Then
+MsgBox "Planilha desprotegida com sucesso!!!"
+Exit Sub
+End If
+Next
+Next
+Next
+Next
+Next
+Next
+Next
+Next
+Next
+Next
+Next
+Next
+ 
+End Sub
+
+Sub DESPROTEGER_DATA_A()
+ 
+n_abas = ActiveWorkbook.Sheets.Count
+a = InputBox("1-scprev " & CHAR(10) & "2-lumens" & CHAR(10) & "3-Geral")
+For i = 1 To n_abas
+On erro GoTo fim:
+    Select Case a
+    a = 1
+     Sheets(i).Protect ("scprev@plan")
+    a = 2
+     Sheets(i).Protect ("654987simu")
+    a = 3
+     Sheets(i).Protect ("654987simu")
+    End Select
+fim:
+Next i
+    Select Case a
+    a = 1
+      ActiveWorkbook.Protect ("scprev@plan")
+    a = 2
+      ActiveWorkbook.Protect ("654987simu")
+    a = 3
+      ActiveWorkbook.Protect ("654987simu")
+    End Select
+End Sub
+Sub PROTEGER_DATA_A()
+ 
+n_abas = ActiveWorkbook.Sheets.Count
+a = InputBox("1-scprev " & CHAR(10) & "2-lumens" & CHAR(10) & "3-Geral")
+For i = 1 To n_abas
+On erro GoTo fim:
+    Select Case a
+    a = 1
+     Sheets(i).Protect ("scprev@plan")
+    a = 2
+     Sheets(i).Protect ("654987simu")
+    a = 3
+     Sheets(i).Protect ("654987simu")
+    End Select
+fim:
+Next i
+If MsgBox("Abas protegidas. Deseja proteger TAMBÉM a pasta de trabalho?", vbYesNo) = vbYes Then
+    Select Case a
+    a = 1
+      ActiveWorkbook.Protect ("scprev@plan")
+    a = 2
+      ActiveWorkbook.Protect ("654987simu")
+    a = 3
+      ActiveWorkbook.Protect ("654987simu")
+    End Select
+
+End If
+ 
+End Sub
+ 
+Sub Preencher_IE()
+    Dim ie As InternetExplorer
+    Dim C
+    Dim ULogin As Boolean, ieForm
+    Dim MyPass As String, MyLogin As String
+redo:
+    MyLogin = Application.InputBox("Por Favor entre com o Login", "Forum JB", Default:="login", Type:=2)
+    MyPass = Application.InputBox("Por favor entre com a senha", "Forum JB", Default:="Password", Type:=2)
+    If MyLogin = "" Or MyPass = "" Then GoTo redo
+    Set ie = New InternetExplorer
+    'ie.Visible = True
+    ie.Navigate "http://www.phrisma.com.br/index/index.php/fale-conosco/"
+ 
+    Do Until ie.ReadyState = READYSTATE_COMPLETE
+    Loop
+ 
+    ie.Document.all("text-5430164740536").innerText = MyLogin
+    ie.Document.all("password").innerText = MyPass
+    ie.Document.all("fm_form_submit").Click
+ 
+    If ULogin = False Then MsgBox "Usuário logado"
+    Set ie = Nothing
+End Sub
+
+Sub EnviaEmail_rafa()
+
+    a = MsgBox("Deseja enviar os e-mails?", vbYesNo)
+    
+    If a = vbNo Then GoTo fim:
+    
+    Dim iMsg, iConf, Flds
+ 
+    'Seta as variáveis, lembrando que o objeto Microsoft CDO deverá estar habilitado em Ferramentas->Referências->Microsoft CDO for Windows 2000 Library
+    Set iConf = CreateObject("CDO.Configuration")
+    Set Flds = iConf.Fields
+    n_emails = Sheets("Lista").Cells(100000, 2).End(xlUp).Row - 1
+    Sheets("Lista").Select
+    Range("G2:G50000").ClearContents
+    
+    'Configura o componente de envio de email
+    schema = "http://schemas.microsoft.com/cdo/configuration/"
+    Flds.Item(schema & "sendusing") = 2
+    'Configura o smtp
+    Flds.Item(schema & "smtpserver") = "smtp.gmail.com"
+    'Configura a porta de envio de email
+    Flds.Item(schema & "smtpserverport") = 465
+    Flds.Item(schema & "smtpauthenticate") = 1
+    Flds.Item(schema & "smtpusessl") = True
+    'Configura o email do remetente
+    Flds.Item(schema & "sendusername") = "raoliveira@mongeralaegonab.com.br"
+    'Configura a senha do email remetente
+    Flds.Item(schema & "sendpassword") = "missinha"
+    Flds.Update
+ On Error GoTo biziu:
+ For i = 1 To n_emails
+    Set iMsg = CreateObject("CDO.Message")
+     With iMsg
+        'Email do destinatário
+        .To = Sheets("Lista").Cells(1 + i, 2)
+        'Seu email
+        .From = Flds.Item(schema & "sendusername")
+        'Título do email
+        .Subject = Sheets("Lista").Cells(1 + i, 3)
+        'Mensagem do e-mail, você pode enviar formatado em HTML
+        .HTMLBody = Sheets("Lista").Cells(1 + i, 4)
+        'Seu nome ou apelido
+        .Sender = "MAFP"
+        'Nome da sua organização
+        .Organization = "Mongeral Aegon Fundo de Pensão"
+        'email de responder para
+        .ReplyTo = Flds.Item(schema & "sendusername")
+        'Anexo a ser enviado na mensagem
+        .AddAttachment (Sheets("Lista").Cells(1 + i, 5) & "/" & Sheets("Lista").Cells(1 + i, 6))
+        'Passa a configuração para o objeto CDO
+        Set .Configuration = iConf
+        'Envia o email
+        .Send
+        Set iMsg = Nothing
+    End With
+    
+    If 1 = 2 Then
+biziu:
+    Sheets("Lista").Cells(1 + i, 7) = "Erro"
+    Else
+    Sheets("Lista").Cells(1 + i, 7) = "Enviado"
+    End If
+    
+ Next i
+ 
+    'Limpa as variáveis
+    Set iConf = Nothing
+    Set Flds = Nothing
+fim:
+End Sub
