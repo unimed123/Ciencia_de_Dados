@@ -1,0 +1,662 @@
+﻿Sub Gerar_arquivos_rdc28()
+
+
+'----- verificação de erros que impedem o início-----------------
+If Sheets("Painel de Controle").Cells(10, 2) = "" Then
+  Sheets("Painel de Controle").Cells(6, 5) = "Registros não preenchidos"
+  GoTo Erro_inicial:
+End If
+If Sheets("Painel de Controle").Cells(3, 3) = "" Or Sheets("Painel de Controle").Cells(4, 3) = "" Or Sheets("Painel de Controle").Cells(5, 3) = "" Or Sheets("Painel de Controle").Cells(6, 3) = "" Then
+  Sheets("Painel de Controle").Cells(6, 5) = "Painel de Datas inconsistente"
+  GoTo Erro_inicial:
+End If
+'If (Sheets("Painel de Controle").Cells(5, 3) - Sheets("Painel de Controle").Cells(4, 3) + 1) <> 365 Then
+'  Sheets("Painel de Controle").Cells(6, 5) = "Período MENOR que 12 meses"
+'  GoTo Erro_inicial:
+'End If
+
+
+
+  Limpar_respostas_PControle
+  
+  '---------------------Definição de variáveis-------------------------------------------
+  Dim N_reg As Single
+  Dim Ano As Single
+  Dim Per_i As Date
+  Dim Per_f As Date
+  Dim ver As String
+  Sheets("painel de controle").Select
+  Application.ScreenUpdating = False
+  
+  Reexibir ' reexibe as abas ocultas
+  
+  If Cells(11, 2) = "" Then N_reg = 1 Else N_reg = Range("b10").End(xlDown).Row - 9 'Numero de Registros
+  ReDim Reg_plano(1 To N_reg) As String
+  ReDim Reg_plano2(0, 1 To N_reg) As String
+  
+  ReDim Tp_plan(1 To N_reg) As String
+  ReDim Tp_contr(1 To N_reg) As String
+  ReDim UD(1 To N_reg) As String
+  ReDim CNPJ(1 To N_reg) As String
+  ReDim R_soc(1 To N_reg) As String
+  ReDim Reg_Ope(1 To N_reg) As String
+  ReDim Ende(1 To N_reg) As String
+  ReDim Tel(1 To N_reg) As String
+  ReDim Fax(1 To N_reg) As String
+  ReDim Email(1 To N_reg) As String
+  ReDim Nome_resp(1 To N_reg) As String
+  ReDim Nome_plano(1 To N_reg) As String
+  ReDim Abrang(1 To N_reg) As String
+  ReDim Regiao(1 To N_reg) As String
+  ReDim Ref_Tabela(1 To N_reg) As Variant
+  ReDim Porte(1 To N_reg) As String
+  
+  '---------------------Leitura das variáveis-------------------------------------------
+  Ano = Sheets("Painel de Controle").Cells(3, 3)
+  Per_i = Sheets("Painel de Controle").Cells(4, 3)
+  Per_f = Sheets("Painel de Controle").Cells(5, 3)
+  ver = Sheets("Painel de Controle").Cells(6, 3)
+  
+  For i = 1 To N_reg
+    
+    Reg_plano(i) = Sheets("Painel de Controle").Cells(9 + i, 2)
+    'Tp_plan(i) = Sheets("Painel de Controle").Cells(9 + i, 4)
+    'Tp_contr(i) = Sheets("Painel de Controle").Cells(9 + i, 5)
+  
+  Sheets("Dados Cadastrais").Select
+  Columns(10).Select
+   x = Procurar(Reg_plano(i))
+   
+    If x = "Registro não encontrado" Then 'verifica se Registro do plano foi cadastrado
+      Sheets("Painel de Controle").Select
+      Cells(9 + i, 6) = "Erro: Arquivo não gerado"
+      Cells(9 + i, 5) = x
+      Application.ScreenUpdating = False
+    Else
+      UD(i) = Sheets("Dados Cadastrais").Cells(x, 1)
+      CNPJ(i) = Sheets("Dados Cadastrais").Cells(x, 2)
+      R_soc(i) = Sheets("Dados Cadastrais").Cells(x, 3)
+      Reg_Ope(i) = Sheets("Dados Cadastrais").Cells(x, 4)
+      Ende(i) = Sheets("Dados Cadastrais").Cells(x, 5)
+      Tel(i) = Sheets("Dados Cadastrais").Cells(x, 6)
+      Fax(i) = Sheets("Dados Cadastrais").Cells(x, 7)
+      Email(i) = Sheets("Dados Cadastrais").Cells(x, 8)
+      Nome_resp(i) = Sheets("Dados Cadastrais").Cells(x, 9)
+      Nome_plano(i) = Sheets("Dados Cadastrais").Cells(x, 11)
+      Abrang(i) = Sheets("Dados Cadastrais").Cells(x, 12)
+      Regiao(i) = Sheets("Dados Cadastrais").Cells(x, 13)
+      Ref_Tabela(i) = Sheets("Dados Cadastrais").Cells(x, 14)
+      Porte(i) = Sheets("Dados Cadastrais").Cells(x, 16)
+    
+    End If
+    
+  Next i 'Número de Registros
+  
+  Sheets("Painel de Controle").Cells(6, 5) = "Calculando..."
+
+ '----------------------- Início do Looping de preenchimento ---------------
+  For j = 1 To N_reg
+    Sheets("Painel de Controle").Cells(9 + j, 4) = Format(Now(), "hh:mm:ss")
+    Application.ScreenUpdating = False
+      
+    Limpar_Anexo_II_A
+    Limpar_Anexo_II_B
+    
+    '------------Verificação de alguns erros cadastrais---------------
+     If Ref_Tabela(j) = "" Then
+      erro_1 = "Registro/Ref. Tabela Preço não encontrado"
+      GoTo erro:
+    End If
+    
+    If Len(Reg_plano(j)) <> 9 Then
+      erro_1 = "Nº de Caract. incorreto"
+      GoTo erro:
+    End If
+    
+    If (Ref_Tabela(j) - 7) Mod 17 <> 0 Then
+      erro_1 = "Referência da Tabela de Preço inconsistente"
+      GoTo erro:
+    End If
+    
+      
+    If Sheets("Tabela Preço").Cells(Ref_Tabela(j), 2) <> "00 a 18" Or Sheets("Tabela Preço").Cells(Ref_Tabela(j), 31) <> "00 a 18" Or Sheets("Tabela Preço").Cells(Ref_Tabela(j), 54) <> "00 a 18" Then
+      erro_1 = "Posicionamento da Tabela de Preço"
+      GoTo erro:
+    End If
+
+    
+    '------------Início do preenchimento------------------
+  
+    NomeArquivo = "C:\ANS\" & Reg_Ope(j) & Reg_plano(j) & Format(Day(Now()), "00") & Format(Month(Now()), "00") & Right(Year(Now()), 2) & Format(Hour(Now()), "00") & Format(Minute(Now()), "00") & Format(Second(Now()), "00") & ".nta"
+      Ver2 = ver & Porte(j)
+      Open NomeArquivo For Output As #1
+        Linha_export = "0" & FMT_FIELD(Reg_Ope(j), 6)
+        Linha_export = Linha_export & FMT_FIELD(Format(Day(Now()), "00"), 2)
+        Linha_export = Linha_export & FMT_FIELD(Format(Month(Now()), "00"), 2)
+        Linha_export = Linha_export & FMT_FIELD(Year(Now()), 4)
+        Linha_export = Linha_export & FMT_FIELD(Format(Hour(Now()), "00"), 2)
+        Linha_export = Linha_export & FMT_FIELD(Format(Minute(Now()), "00"), 2)
+        Linha_export = Linha_export & FMT_FIELD(Format(Second(Now()), "00"), 2)
+        Linha_export = Linha_export & FMT_FIELD(CNPJ(j), 14)
+        Linha_export = Linha_export & FMT_FIELD(Month(Per_i), 2)
+        Linha_export = Linha_export & FMT_FIELD(Year(Per_i), 4)
+        Linha_export = Linha_export & FMT_FIELD(Month(Per_f), 2)
+        Linha_export = Linha_export & FMT_FIELD(Year(Per_f), 4)
+        Linha_export = Linha_export & FMT_FIELD(Reg_plano(j), 10)
+        Linha_export = Linha_export & FMT_FIELD(Abrang(j), 20)
+        Linha_export = Linha_export & FMT_FIELD(Nome_plano(j), 100)
+        Linha_export = Linha_export & FMT_FIELD(Ver2, 3)
+        Linha_export = Linha_export & FMT_FIELD(Porte(j), 1)
+      Print #1, Linha_export
+    '---------------------------------Municípios----------------------------------
+    Sheets("Anexo Região").Select
+    Range(Cells(2, 9), Cells(5565, 10)) = "NÃO"
+    Dig_regiao (Regiao(j)) '---Seleciona os municípios---
+      
+    For y = 1 To Sheets("Anexo Região").Cells(1, 1).End(xlDown).Row - 1
+        If Sheets("Anexo Região").Cells(1 + y, 9) = "SIM" Then
+              Linha_export = "1" & FMT_FIELD(Reg_Ope(j), 6)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 1), 2)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 2), 3)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 3), 30)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 4), 4)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 5), 50)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 6), 15)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 7), 10)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 8), 1)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 9), 3)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 10), 3)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 11), 5)
+              Linha_export = Linha_export & FMT_FIELD(Sheets("Anexo Região").Cells(y + 1, 12), 10)
+              Print #1, Linha_export
+          End If
+      Next y 'linhas do anexo Regiao
+  
+    '---------------------------------Anexo II-A----------------------------------
+  
+    Sheets("Anexo II-A").Select
+    
+    Range("A2:A411") = Reg_Ope(j)
+    Range("G2:G411") = Nome_plano(j)
+    Range("H2:H411") = Reg_plano(j)
+        
+    If Porte(j) = 1 Then 'se porte da operadora menor que 100mil
+      For p = 1 To 10
+      '------------- Consultas----------
+      Range("K" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 32) 'Nº Expostos
+      Range("L" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 33) 'Nº de Eventos
+      Range("M" & 1 + p) = Round(Divisao(Range("L" & 1 + p), Range("K" & 1 + p)), 2) 'Freqüência de Utilização
+      Range("N" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 34) 'Total de Despesa Assistencial
+      Range("O" & 1 + p) = Divisao_2(Round(Range("N" & 1 + p), 0), Round(Range("L" & 1 + p), 0)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 1 + p) = Divisao(Round(Range("N" & 1 + p), 13), Round(Range("k" & 1 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 1 + p) = Sheets("Painel de Controle").Cells(10, 85) 'Codigo do procedimento para o envio ANS
+      '------------- Exames----------
+      Range("K" & 11 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 35) 'Nº Expostos
+      Range("L" & 11 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 36) 'Nº de Eventos
+      Range("M" & 11 + p) = Divisao_2(Range("L" & 11 + p), Range("K" & 11 + p)) 'Freqüência de Utilização
+      Range("N" & 11 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 37) 'Total de Despesa Assistencial
+      Range("O" & 11 + p) = Divisao(Round(Range("N" & 11 + p), 13), Round(Range("L" & 11 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 11 + p) = Divisao(Round(Range("N" & 11 + p), 13), Round(Range("k" & 11 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 11 + p) = Sheets("Painel de Controle").Cells(11, 85) 'Codigo do procedimento para o envio ANS
+      '------------- Terapias----------
+      Range("K" & 21 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 38) 'Nº Expostos
+      Range("L" & 21 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 39) 'Nº de Eventos
+      Range("M" & 21 + p) = Divisao_2(Range("L" & 21 + p), Range("K" & 21 + p)) 'Freqüência de Utilização
+      Range("N" & 21 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 40) 'Total de Despesa Assistencial
+      Range("O" & 21 + p) = Divisao(Round(Range("N" & 21 + p), 13), Round(Range("L" & 21 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 21 + p) = Divisao(Round(Range("N" & 21 + p), 13), Round(Range("k" & 21 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 21 + p) = Sheets("Painel de Controle").Cells(12, 85) 'Codigo do procedimento para o envio ANS
+      '------------- Outros Atend. Ambulatoriais----------
+      Range("K" & 31 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 41) 'Nº Expostos
+      Range("L" & 31 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 42) 'Nº de Eventos
+      Range("M" & 31 + p) = Divisao_2(Range("L" & 31 + p), Range("K" & 31 + p)) 'Freqüência de Utilização
+      Range("N" & 31 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 43) 'Total de Despesa Assistencial
+      Range("O" & 31 + p) = Divisao(Round(Range("N" & 31 + p), 13), Round(Range("L" & 31 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 31 + p) = Divisao(Round(Range("N" & 31 + p), 13), Round(Range("k" & 31 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 31 + p) = Sheets("Painel de Controle").Cells(13, 85) 'Codigo do procedimento para o envio ANS
+      '------------- Internações----------
+      Range("K" & 41 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 44) 'Nº Expostos
+      Range("L" & 41 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 45) 'Nº de Eventos
+      Range("M" & 41 + p) = Divisao_2(Range("L" & 41 + p), Range("K" & 41 + p)) 'Freqüência de Utilização
+      Range("N" & 41 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 46) 'Total de Despesa Assistencial
+      Range("O" & 41 + p) = Divisao(Round(Range("N" & 41 + p), 13), Round(Range("L" & 41 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 41 + p) = Divisao(Round(Range("N" & 41 + p), 13), Round(Range("k" & 41 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 41 + p) = Sheets("Painel de Controle").Cells(14, 85) 'Codigo do procedimento para o envio ANS
+      '------------- Despesas Odontológicas----------
+      Range("K" & 51 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 47) 'Nº Expostos
+      Range("L" & 51 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 48) 'Nº de Eventos
+      Range("M" & 51 + p) = Divisao_2(Range("L" & 51 + p), Range("K" & 51 + p)) 'Freqüência de Utilização
+      Range("N" & 51 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 49) 'Total de Despesa Assistencial
+      Range("O" & 51 + p) = Divisao(Round(Range("N" & 51 + p), 13), Round(Range("L" & 51 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 51 + p) = Divisao(Round(Range("N" & 51 + p), 13), Round(Range("k" & 51 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 51 + p) = Sheets("Painel de Controle").Cells(15, 85) 'Codigo do procedimento para o envio ANS
+      '------------- Demais Despesas Assistenciais----------
+      Range("K" & 61 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 50)  'Nº Expostos
+      Range("L" & 61 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 51) 'Nº de Eventos
+      Range("M" & 61 + p) = Divisao_2(Range("L" & 61 + p), Range("K" & 61 + p)) 'Freqüência de Utilização
+      Range("N" & 61 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 52) 'Total de Despesa Assistencial
+      Range("O" & 61 + p) = Divisao(Round(Range("N" & 61 + p), 13), Round(Range("L" & 61 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 61 + p) = Divisao(Round(Range("N" & 61 + p), 13), Round(Range("k" & 61 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 61 + p) = Sheets("Painel de Controle").Cells(16, 85) 'Codigo do procedimento para o envio ANS
+      
+      Range("E72:E411") = 0
+      Range("K72:W411") = 0
+      Range("w2:w411") = 0
+      Range("X2:X71") = "OK"
+      Range("X72:X411") = "Verificar Informação na pasta Relatório de Críticas"
+      Next p
+    Else
+        For p = 1 To 10
+      '------------- Consultas----------
+      Range("K" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 32) 'Nº Expostos
+      Range("L" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 33) 'Nº de Eventos
+      Range("M" & 11 + p) = Divisao(Range("L" & 11 + p), Range("K" & 11 + p)) 'Freqüência de Utilização
+      Range("N" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 34) 'Total de Despesa Assistencial
+      Range("O" & 1 + p) = Divisao_2(Round(Range("N" & 1 + p), 0), Round(Range("L" & 1 + p), 0)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 1 + p) = Divisao(Round(Range("N" & 1 + p), 13), Round(Range("k" & 1 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 1 + p) = Sheets("Painel de Controle").Cells(10, 86) 'Codigo do procedimento para o envio ANS
+      '------------- Exames complementares (grupo 1)----------
+      Range("K" & 11 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 35) 'Nº Expostos
+      Range("L" & 11 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 36) 'Nº de Eventos
+      Range("M" & 11 + p) = Divisao_2(Range("L" & 11 + p), Range("K" & 11 + p)) 'Freqüência de Utilização
+      Range("N" & 11 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 37) 'Total de Despesa Assistencial
+      Range("O" & 11 + p) = Divisao_2(Round(Range("N" & 11 + p), 13), Round(Range("L" & 11 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 11 + p) = Divisao(Round(Range("N" & 11 + p), 13), Round(Range("k" & 11 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 11 + p) = Sheets("Painel de Controle").Cells(11, 86) 'Codigo do procedimento para o envio ANS
+      '------------- Exames complementares (grupo 2)----------
+      Range("K" & 21 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 38) 'Nº Expostos
+      Range("L" & 21 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 39) 'Nº de Eventos
+      Range("M" & 21 + p) = Divisao_2(Range("L" & 21 + p), Range("K" & 21 + p)) 'Freqüência de Utilização
+      Range("N" & 21 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 40) 'Total de Despesa Assistencial
+      Range("O" & 21 + p) = Divisao(Round(Range("N" & 21 + p), 13), Round(Range("L" & 21 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 21 + p) = Divisao(Round(Range("N" & 21 + p), 13), Round(Range("k" & 21 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 21 + p) = Sheets("Painel de Controle").Cells(12, 86) 'Codigo do procedimento para o envio ANS
+      '------------- Terapias (grupo 1)----------
+      Range("K" & 31 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 41) 'Nº Expostos
+      Range("L" & 31 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 42) 'Nº de Eventos
+      Range("M" & 31 + p) = Divisao_2(Range("L" & 31 + p), Range("K" & 31 + p)) 'Freqüência de Utilização
+      Range("N" & 31 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 43) 'Total de Despesa Assistencial
+      Range("O" & 31 + p) = Divisao(Round(Range("N" & 31 + p), 13), Round(Range("L" & 31 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 31 + p) = Divisao(Round(Range("N" & 31 + p), 13), Round(Range("k" & 31 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 31 + p) = Sheets("Painel de Controle").Cells(13, 86) 'Codigo do procedimento para o envio ANS
+      '------------- Terapias (grupo 2)----------
+      Range("K" & 41 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 44) 'Nº Expostos
+      Range("L" & 41 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 45) 'Nº de Eventos
+      Range("M" & 41 + p) = Divisao_2(Range("L" & 41 + p), Range("K" & 41 + p)) 'Freqüência de Utilização
+      Range("N" & 41 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 46) 'Total de Despesa Assistencial
+      Range("O" & 41 + p) = Divisao(Round(Range("N" & 41 + p), 13), Round(Range("L" & 41 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 41 + p) = Divisao(Round(Range("N" & 41 + p), 13), Round(Range("k" & 41 + p), 13)) 'Despesa Assistencial por Exposto
+     ' Range("E" & 41 + p) = Sheets("Painel de Controle").Cells(14, 86) 'Codigo do procedimento para o envio ANS
+      '------------- Outros Atendimentos Ambulatoriais----------
+      Range("K" & 51 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 47) 'Nº Expostos
+      Range("L" & 51 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 48) 'Nº de Eventos
+      Range("M" & 51 + p) = Divisao_2(Range("L" & 51 + p), Range("K" & 51 + p)) 'Freqüência de Utilização
+      Range("N" & 51 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 49) 'Total de Despesa Assistencial
+      Range("O" & 51 + p) = Divisao(Round(Range("N" & 51 + p), 13), Round(Range("L" & 51 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+     ' Range("p" & 51 + p) = Divisao(Round(Range("N" & 51 + p), 13), Round(Range("k" & 51 + p), 13)) 'Despesa Assistencial por Exposto
+      Range("E" & 51 + p) = Sheets("Painel de Controle").Cells(15, 86) 'Codigo do procedimento para o envio ANS
+      '------------- Internações----------
+      Range("K" & 61 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 50)  'Nº Expostos
+      Range("L" & 61 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 51) 'Nº de Eventos
+      Range("M" & 61 + p) = Divisao_2(Range("L" & 61 + p), Range("K" & 61 + p)) 'Freqüência de Utilização
+      Range("N" & 61 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 52) 'Total de Despesa Assistencial
+      Range("O" & 61 + p) = Divisao(Round(Range("N" & 61 + p), 13), Round(Range("L" & 61 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 61 + p) = Divisao(Round(Range("N" & 61 + p), 13), Round(Range("k" & 61 + p), 13)) 'Despesa Assistencial por Exposto
+     ' Range("E" & 61 + p) = Sheets("Painel de Controle").Cells(16, 86) 'Codigo do procedimento para o envio ANS
+      '------------- Despesas Odontológicas----------
+      Range("K" & 71 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 50)  'Nº Expostos
+      Range("L" & 71 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 51) 'Nº de Eventos
+      Range("M" & 71 + p) = Divisao_2(Range("L" & 71 + p), Range("K" & 71 + p)) 'Freqüência de Utilização
+      Range("N" & 71 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 52) 'Total de Despesa Assistencial
+      Range("O" & 71 + p) = Divisao(Round(Range("N" & 71 + p), 13), Round(Range("L" & 71 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 71 + p) = Divisao(Round(Range("N" & 71 + p), 13), Round(Range("k" & 71 + p), 13)) 'Despesa Assistencial por Exposto
+      'Range("E" & 71 + p) = Sheets("Painel de Controle").Cells(16, 86) 'Codigo do procedimento para o envio ANS
+      '------------- Demais Despesas Assistenciais----------
+      Range("K" & 81 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 50)  'Nº Expostos
+      Range("L" & 81 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 51) 'Nº de Eventos
+      Range("M" & 81 + p) = Divisao_2(Range("L" & 81 + p), Range("K" & 81 + p)) 'Freqüência de Utilização
+      Range("N" & 81 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 52) 'Total de Despesa Assistencial
+      Range("O" & 81 + p) = Divisao(Round(Range("N" & 81 + p), 13), Round(Range("L" & 81 + p), 13)) 'Valor Médio do Item de Despesa Assistencial
+      Range("p" & 81 + p) = Divisao(Round(Range("N" & 81 + p), 13), Round(Range("k" & 81 + p), 13)) 'Despesa Assistencial por Exposto
+     ' Range("E" & 81 + p) = Sheets("Painel de Controle").Cells(16, 86) 'Codigo do procedimento para o envio ANS
+      
+      Range("E92:E411") = 0
+      Range("K92:W411") = 0
+      Range("w2:w411") = 0
+      Range("X2:X91") = "OK"
+      Range("X92:X411") = "Verificar Informação na pasta Relatório de Críticas"
+      
+      Next p 'Inclui os preços
+      
+    End If
+    
+    '------- Outras variaveis(dependem dos valores preenchidos acima) ------
+    For p = 1 To 410
+     
+     If Application.Sum(Range("K" & p + 1 & ":P" & p + 1)) <> 0 Then
+      Range("Q" & 1 + p) = Abrang(j) 'Abrangencia
+      Range("R" & 1 + p) = Month(Per_i) 'Mes Inicial
+      Range("S" & 1 + p) = Year(Per_i) 'Ano Inicial
+      Range("T" & 1 + p) = Month(Per_f) 'Mes Final
+      Range("U" & 1 + p) = Year(Per_f) 'Ano Final
+      Range("V" & 1 + p) = -1 'Teste Anll
+      Range("d" & 1 + p) = CNPJ(j) 'CNPJ
+    Else
+      Range("Q" & 1 + p) = 0 'Abrangencia
+      Range("R" & 1 + p) = 0 'Mes Inicial
+      Range("S" & 1 + p) = 0 'Ano Inicial
+      Range("T" & 1 + p) = 0 'Mes Final
+      Range("U" & 1 + p) = 0 'Ano Final
+      Range("V" & 1 + p) = 0 'Teste Anll
+      Range("d" & 1 + p) = 0 'CNPJ
+    End If
+    Range("B" & 1 + p) = Left(Range("d" & 1 + p), 8) + 0 'Inicio CNPJ_OPERADORA
+    Range("c" & 1 + p) = Right(Range("d" & 1 + p), 6) + 0 'RESTO_CNPJ
+    
+    Next p 'Proxima linha das outras variaveis(dependem dos valores preenchidos acima)
+  
+  
+    '---------------------------------Anexo II-B----------------------------------
+    Sheets("Anexo II-B").Select
+    
+    Range("A2:A11") = Reg_Ope(j)
+    Range("F2:F11") = Nome_plano(j)
+    Range("G2:G11") = Reg_plano(j)
+  
+    For p = 1 To 10
+      'Range("K" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 57) 'Despesa Assistencial por Exposto E
+      Range("L" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 58) 'Recuperação de Co-participação F
+      Range("M" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 59) 'Recuperação de Seguro G
+      Range("N" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 60) 'Recuperação de Resseguro e Co-seguro H
+      'Range("O" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 61) 'Despesa Assistencial Líquida por Exposto I
+      Range("P" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 62) 'Mg. Seg. Estatística por Exposto J
+      'Range("Q" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 63) 'Desp. Assis. Líquida com Margem Seg. Est. p Exposto K
+      Range("R" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 55) 'N.º de Beneficiários L
+      Range("S" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 64) 'Despesas de Comercialização por Beneficiário M
+      Range("T" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 65) 'Outras Despesas da Carteira de Planos por Beneficiário N
+      Range("U" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 66) 'Desp. Adm. por Benef. O
+      Range("V" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 67) 'Prest. Outros Servicos por Beneficiario. P
+      'Range("W" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 68) 'Despesa Total por Beneficiário. Q
+      Range("X" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 69) 'Margem de Sobra por Beneficiário R
+      Range("AG" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 70) 'Ajuste T
+      'Range("Y" & 1 + p) = Sheets("Tabela Preço").Cells(Ref_Tabela(j) + p - 1, 71) 'Valor Comercial da Mensalidade T
+   
+      If Application.Sum(Range("K" & p + 1 & ":Y" & p + 1)) <> 0 Then
+         Range("Z" & 1 + p) = Abrang(j) 'Abrangencia
+         Range("AB" & 1 + p) = Month(Per_i) 'Mes Inicial
+         Range("AC" & 1 + p) = Year(Per_i) 'Ano Inicial
+         Range("AD" & 1 + p) = Month(Per_f) 'Mes Final
+         Range("AE" & 1 + p) = Year(Per_f) 'Ano Final
+         Range("AF" & 1 + p) = -1 'Teste Anll
+         Range("d" & 1 + p) = CNPJ(j) 'CNPJ
+       Else
+         Range("Z" & 1 + p) = 0 'Abrangencia
+         Range("AB" & 1 + p) = 0 'Mes Inicial
+         Range("AC" & 1 + p) = 0 'Ano Inicial
+         Range("AD" & 1 + p) = 0 'Mes Final
+         Range("AE" & 1 + p) = 0 'Ano Final
+         Range("AF" & 1 + p) = 0 'Teste Anll
+         Range("d" & 1 + p) = 0 'CNPJ
+       End If
+       
+      Range("B" & 1 + p) = Left(Range("d" & 1 + p), 8) + 0 'Inicio CNPJ_OPERADORA
+      Range("c" & 1 + p) = Right(Range("d" & 1 + p), 6) + 0 'RESTO_CNPJ
+    Next p 'passa para proxima linha anexo II-b
+    
+    
+  '----------------------------Gravação do Anexo II-A-----------------------------------
+      Sheets("Anexo II-A").Select
+          
+      For y = 1 To 410
+          Linha_export = "2"
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 1).Value, 6)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 2).Value, 8)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 3).Value, 6)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 4).Value, 14)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 5).Value, 25)
+          ' Grava as faixas etárias com códigos 8 a 17
+          Linha_export = Linha_export & FMT_FIELD(Trim(Str(Int(Cells(y + 1, 6).Value) + 7)), 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 7).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 8).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 9).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 10).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 11).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 12).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Round(Cells(y + 1, 13).Value, 15), 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 14).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 15).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 16).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 17).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 18).Value, 2)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 19).Value, 4)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 20).Value, 2)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 21).Value, 4)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 22).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 23).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 24).Value, 60)
+          Print #1, Linha_export
+      Next y
+      
+      
+  '----------------------------Gravação do Anexo II-B-----------------------------------
+      Sheets("Anexo II-B").Select
+      
+      For y = 1 To 10
+          Linha_export = "3"
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 1).Value, 6)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 2).Value, 8)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 3).Value, 6)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 4).Value, 14)
+          ' Grava as faixas etárias com códigos 8 a 17
+          Linha_export = Linha_export & FMT_FIELD(Trim(Str(Int(Cells(y + 1, 5).Value) + 7)), 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 6).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 7).Value, 15)
+          ' Grava as faixas etárias com códigos 8 a 17
+          Linha_export = Linha_export & FMT_FIELD(Trim(Str(Int(Cells(y + 1, 8).Value) + 7)), 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 9).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 10).Value, 15)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 11).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 12).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 13).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 14).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 15).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 16).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 17).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 18).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 19).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 20).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 21).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 22).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 23).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 24).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 25).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 26).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 27).Value, 25)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 28).Value, 2)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 29).Value, 4)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 30).Value, 2)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 31).Value, 4)
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 32).Value, 25)
+          'Valor do ajuste
+          Linha_export = Linha_export & FMT_FIELD(Cells(y + 1, 33).Value, 25)
+          Print #1, Linha_export
+      Next y
+      Close #1    ' Fecha o arquivo
+  
+    Sheets("Painel de Controle").Select
+    
+    If 1 = 1 Then
+      Cells(9 + j, 6) = NomeArquivo
+      Cells(9 + j, 5) = "OK"
+      Cells(9 + j, 4) = Format(Now() - Cells(9 + j, 4), "hh:mm:ss")
+      Application.ScreenUpdating = True
+    Sheets("Painel de Controle").Cells(6, 5) = Format((Cells(9 + j, 4) * (N_reg - j)), "hh:mm:ss")
+    Else 'ponto de escape dos erros cadastrais (dentro do looping "J")
+erro:
+      Sheets("Painel de Controle").Select
+      Cells(9 + j, 6) = "Erro: Arquivo não gerado"
+      Cells(9 + j, 5) = erro_1
+      Cells(9 + j, 4) = Format(Now() - Cells(9 + j, 4), "hh:mm:ss")
+      Application.ScreenUpdating = True
+    End If
+    
+  Next j 'principal
+
+
+Sheets("Painel de Controle").Cells(6, 5) = "Concluído"
+  
+'-----------------------------
+If 1 = 2 Then ' condição de sáida para os erros iniciais(não engloba o looping dos registros)
+Erro_inicial:
+End If
+'---------------------------
+  
+Ocultar
+
+End Sub
+Sub Histórico_RDC28()
+
+Reexibir_Histórico
+Sheets("Histórico RDC28").Select
+Z = Cells(7, 1).End(xlDown).Row
+    Range("G7:G" & Z) = "=VALUE(MID(RC[-6],7,9))"
+    Range("H7:H" & Z) = "=VLOOKUP(N(RC[-1]),'Dados Cadastrais'!C[2]:C[7],2,0)"
+    Range("I7:I" & Z) = "=VLOOKUP(N(RC[-2]),'Dados Cadastrais'!C[1]:C[10],8,0)"
+    Range("J7:J" & Z) = "=VLOOKUP(RC[-1],'Dados Operadoras'!C[-9]:C[9],3,0)"
+    Range("K7:K" & Z) = "=Left(RC[-10],6)"
+    
+Range("G7:h" & Z).Copy
+Range("G7").Select
+Selection.PasteSpecial (xlValues)
+Application.CutCopyMode = False
+Range("G6").Select
+
+
+End Sub
+Sub Preencher_Declaração_de_Suficiência_RDC28()
+
+If Cells(7, 1) = "" Then GoTo fim:
+
+Reexibir_Gera_Word
+Sheets("Gera Dec.Suficiência - Word").Select
+
+Z = Cells(7, 1).End(xlDown).Row
+    Range("G7:G" & Z) = "=VALUE(MID(RC[-6],7,9))"
+    Range("H7:H" & Z) = "=VLOOKUP(N(RC[-1]),'Dados Cadastrais'!C[2]:C[7],2,0)"
+    Range("I7:I" & Z) = "=VLOOKUP(N(RC[-2]),'Dados Cadastrais'!C[1]:C[10],8,0)"
+    Range("J7:J" & Z) = "=VLOOKUP(RC[-1],'Dados Operadoras'!C[-9]:C[9],3,0)"
+    Range("K7:K" & Z) = "=Left(RC[-10],6)"
+    Range("L7:L" & Z) = "=VLOOKUP(RC[-3],'Dados Operadoras'!C[-11]:C[5],9,0)"
+    Range("M7:M" & Z) = "=VLOOKUP(RC[-4],'Dados Operadoras'!C[-12]:C[4],10,0)"
+    Range("N7:N" & Z) = "=VLOOKUP(RC[-5],'Dados Operadoras'!C[-13]:C[5],11,0)"
+    Range("O7:O" & Z) = "=VLOOKUP(RC[-6],'Dados Operadoras'!C[-14]:C[6],12,0)"
+    
+Range("G7:O" & Z).Copy
+Range("G7").Select
+Selection.PasteSpecial (xlValues)
+Application.CutCopyMode = False
+Range("G6").Select
+fim:
+End Sub
+Sub Gera_Declaração_de_Suficiência_RDC28()
+
+Sheets("Gera Dec.Suficiência - Word").Select
+
+msg = MsgBox("Deseja gerar as Declarações(arquivos em Word)?", vbYesNo)
+
+If msg <> 6 Then GoTo Fim_macro:
+n_ind = Cells(1048576, 20).End(xlUp).Row - 6 'nº de Indicadores no Doc do word
+ReDim indicador(1 To n_ind) As Variant
+
+
+Caminho = ActiveWorkbook.Path 'define o caminho onde o arquivo .xlsm está
+
+
+Sheets("Gera Dec.Suficiência - Word").Select
+a = Cells(1048576, 1).End(xlUp).Row - 6 'conta nº de produtos gerados
+
+For i = 1 To n_ind 'lê o nome dos indicadores
+  indicador(i) = Cells(6 + i, 20)
+Next i
+
+For i = 1 To a 'repete de acordo com a quantidade de produtos
+
+    Set appwrd = CreateObject("Word.Application") 'cria o vínculo com o WORD
+    Set modelo = appwrd.Documents.Open(Caminho & "\" & "Modelo - Declaração de Suficiência.doc") 'Abre o modelo
+    
+    'Se o arquivo não for encontrado, encerra o Word, a macro e avisa o usuário
+        If modelo Is Nothing Then
+            MsgBox "Não foi possível encontrar o arquivo Word.", vbCritical, "ARQUIVO NÃO ENCONTRADO"
+            appwrd.Quit
+            Set appwrd = Nothing
+            Exit Sub
+        End If
+        
+        
+        If Application.CountBlank(Range(Cells(6 + i, 1), Cells(6 + i, 15))) > 1 Then GoTo fim_i:
+        
+        NovoWord = Caminho & "\" & Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 7).Value & ".doc"
+
+        'Faz o word localizar o indicador designado na variável BookMarkRange e colar o valor desejado
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(1)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 11).Copy 'Reg. Operadora
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(2)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 10).Copy 'Razao social
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(3)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 7).Copy 'Reg. Plano
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(4)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 2).Copy 'Protocolo
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(5)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 15).Copy 'Num CRC
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(6)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 12).Copy 'Nome Rep LEgal
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(7)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 8).Copy 'Nome do Plano
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(8)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 14).Copy 'Nome do COntador
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(9)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(15, 21).Copy 'nome do atuario
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(10)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(16, 21).Copy 'MIBA
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.Selection.GoTo What:=wdGoToBookmark, Name:=indicador(11)
+        ThisWorkbook.Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 13).Copy 'Cargo Rep Legal
+        appwrd.Selection.PasteSpecial DataType:=wdPasteText
+        
+        appwrd.ActiveDocument.SaveAs Filename:=NovoWord
+        appwrd.ActiveDocument.Close
+        
+        Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 16) = "Concluído"
+If 1 = 2 Then
+fim_i:
+Sheets("Gera Dec.Suficiência - Word").Cells(6 + i, 16) = "Erro"
+End If
+        'Limpa os aplicativos e documentos da memória
+        Set appwrd = Nothing
+        Set modelo = Nothing
+    
+Next i
+
+Fim_macro:
+
+End Sub
