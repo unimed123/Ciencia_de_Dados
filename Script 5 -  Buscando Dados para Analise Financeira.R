@@ -1,7 +1,7 @@
 ###############################################################################
 # CURSO:  Formação Cientista de Dados        PLATAFORMA: Data Science Academy #
 # MÓDULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
-# Data: 19/06/2017 - inicio aula: 06:29 pm     dd/mm/2016 - fim aula::pm      #
+# Data: 31/07/2017 - inicio aula: 06:29 pm     dd/mm/2016 - fim aula::pm      #
 ###############################################################################
 
 # Big Data na Pratica - Buscando Dados para Analise Financeira
@@ -19,16 +19,16 @@ dir()
 # Series temporais
 
 # instalar e carregar os pacotes
-install.packages("quantmod")
+install.packages("quantmod") # pacote especifico para a area financeira, traz uma serie de funcoes prontas que facilita a coleta de dados financeiros a conversao desses dados para serie temporais, entre outras vantagens.
 install.packages("xts") # Manipulacao de dados temporais
-install.packages("moments") # estatisticas de dados em series temporais
+install.packages("moments") # uma serie de funcoes estatisticas de dados em series temporais
 library(quantmod)
 library(xts)
 library(moments)
 
 # Selecao do periodo de analise
-startDate = as.Date("2017-01-21")
-endDate = as.Date("2017-06-20")
+startDate = as.Date("2016-01-01")
+endDate = as.Date("201-07-31")
 
 
 # Download dos dados do periodo
@@ -90,7 +90,7 @@ PETR4.SA.ret <- PETR4.SA.ret [-1]
 # Plotar a taxa de retorno, plotar sem os valores NA
 plot(PETR4.SA.ret, main = "Fechamento Diario das Acoes da Petrobras",
      col = "red", xlab = "Data", ylab = "Retorno", major.ticks = 'days',
-         minor.ticks = FALSE)
+     minor.ticks = FALSE)
 
 
 # Calculando algumas medidas estatisticas
@@ -109,9 +109,3 @@ saveRDS(PETR4.SA, file = "PETR4.SA.rds") # Salva os dados em formato binario
 Ptr = readRDS("PETR4.SA.rds")
 dir()
 head(Ptr)
-
-
-
-
-
-
