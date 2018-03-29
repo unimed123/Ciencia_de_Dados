@@ -1,0 +1,172 @@
+﻿###############################################################################
+# CURSO:  Formação Cientista de Dados        PLATAFORMA: Data Science Academy #
+# MÓDULO: Big Data Analytics com R           INSTRUTOR:  Daniel Mendes        #
+# Data: 28/03/2018 - inicio aula: 21:04 pm     23/03/2018 - fim aula:22:07 pm #
+###############################################################################
+
+
+# Subsetting
+
+# ***** Esta Ã© a versÃ£o 2.0 deste script, atualizado em 23/05/2017 *****
+# ***** Esse script pode ser executado nas versÃµes 3.3.1, 3.3.2, 3.3.3 e 3.4.0 da linguagem R *****
+# ***** Recomendamos a utilizaÃ§Ã£o da versÃ£o 3.4.0 da linguagem R *****
+
+# Configurando o diretÃ³rio de trabalho
+# Coloque entre aspas o diretÃ³rio de trabalho que vocÃª estÃ¡ usando no seu computador
+
+
+getwd()
+
+# Muitas das tÃ©cnicas abaixo podem ser realizadas com a aplicaÃ§Ã£o das funÃ§Ãµes:
+# subset(), merge(), plyr::arrange()
+# Mas conhecer estas notaÃ§Ãµes Ã© fundamental para compreeder como gerar subconjuntos de dados
+
+
+## Vetores
+x <- c(6.2, 8.1, 5.5, 2.9)
+x[] 
+x
+
+# indices Positivos - Elementos em posicoes especificas # dentro dos colchetes posso especificar algumas regras
+x[c(1, 3)]
+x[c(1, 1)]
+x[order(x)]
+
+# indices Negativos - Ignora elementos em posicoes especificas
+x[-c(1, 3)] # traga tudo menos os elementos da posicao 1 e 3 
+x[-c(1,4)]
+
+# Vetor Logico para gerar subsetting
+x[c(TRUE, FALSE)]
+
+x[c(TRUE, FALSE, TRUE, FALSE)]
+
+
+# Vetor de caracteres
+y <- setNames(x, letters[1:4]) # vetor x criado anteriormente, porem com titulos para as colunas
+
+y
+y[c("d", "c", "a")] # retornar os elementos dos titulos especificados
+y[c("a", "a", "a")]
+
+
+## Matrizes
+
+mat <- matrix(1:9, nrow = 3)
+colnames(mat) <- c("A", "B", "C") # nomear a matrix
+mat
+
+
+mat[1:2, ] # colunas deixamos vazio, como a matrix e um elemento bidimensional nos precisamos passar 2 elementos, no vetor temos apenas 1 dimensao
+mat[1:2, 2:3]
+
+
+# Funcao outer() permite que uma Matriz se comporte como vetores individuais
+?outer # se comporta como uma matrix com se fosse varios vetores normais unidos
+vals <- outer(1:5, 1:5, FUN = "paste", sep = ",")
+vals
+vals[c(4,15)] # buscamos o elemento unimensional, buscar elemento especifico, vetores independente
+
+
+
+## Dataframes
+
+df<- data.frame(x = 1:3, y = 3:1, z = letters[1:3]) # cada coluna com um conjunto de elementos
+df
+df$x # quando voce chama do data frame cifrão ele te mostra as colunas recurso do alto completa
+
+
+df[df$x == 2, ] # data frame tem que passar linha e coluna, onde os elementos de x for igual a 2 e coluna qualquer uma
+
+df[c(1, 3), ] # quais linhas eu quero atraves de um vetor linha 1 e 3 e qualquer coluna
+
+df[c("x", "z")] # posso fazer a busca utilizando o titulo das colunas
+
+df[, c("x", "z")] # a mesma coisa utilizando a notacao bidimensional
+
+str(df["x"]) # funcao str que traz um resumo sob as variaveis, apenas para 1 elemento dentro do meu objeto
+
+str(df[, "x"]) # pode fazer a mesma coisa fazendo uma notacao bidimensional, atencao retorna sempre um vetor de elemento na sua resposta
+
+str(df[, "x"])
+
+
+# substting e um conceito de gerar conjunto de dados
+
+# Removendo colunas de dataframes
+df<- data.frame(x = 1:3, y = 3:1, z = letters[1:3]) # constuimos um dataframe
+df
+df$z <- NULL # pos construido o data frame gostaria de eliminar uma coluna
+
+df$z <- NULL
+df
+df[setdiff(names(df), "z")] # ou poderar ignorar a coluna com a funcao setdiff, nao exclui a coluna apenas nao esta retornando essa coluna no meu resultado
+
+df[setdiff(names(df), "z")]
+
+
+
+# Operadores [], [[]] e $ # importante entender a diferenca entre os operadores
+a <- list(x = 1, y = 2) # vamos criar uma lista
+a
+a[1] # esta retornando o nivel inteiro
+a[[1]] # duplo colchete ele retorna o elemento dentro do primeiro nivel
+a[["x"]] # retorna o elemento especifico dentro daquele nivel
+
+b <- list(a = list(b = list(c = list(d = 1))))
+b
+b[[c("a", "b", "c", "d")]]
+b[["a"]][["b"]][["c"]][["d"]]
+
+# x$y e equivalente a x[["y", exact = FALSE]] - cifrao e igual a duplo colchete
+
+
+var <- "cyl"
+mtcars$var # nao existe pq var e um objeto independente
+
+mtcars[[var]] # buscar os elementos do mtcars aonde o indice de equivalencia ao var
+
+x <- list(abc = 1)
+x$a
+x[["a"]]
+
+
+# Subsetting e atribuicao
+x <- 1:5
+x
+x[c(1, 2)] <- 2:3 # posso substituir os dados, ao fazer um substting nao e a ideia de apenas retornar os dados mas tb de modificar aquele conjunto de dados dentro do nosso subsetting maior
+x
+
+x[-1] <- 4:1 # indice negativo, faca a atribuicao exceto na posica 1
+x
+
+# Isso e subsetting
+head(mtcars)
+
+mtcars[] <- lapply(mtcars, as.integer) # lapply aplica uma funcao ao 1 conjunto de elementos, funcao lapply retorna uma lista
+head(mtcars)                           # qdo usa [] ou [[]] vc esta trabalhando com subsetting ou $ para buscar elemento 
+
+
+# Isso nao e subsetting
+mtcars <- lapply(mtcars, as.integer) # aqui construiu um novo objeto
+head(mtcars)
+
+# Lookup tables # unir os vetores  muito utilizado
+x <- c("m", "f", "u", "f", "f", "m", "m")
+lookup <- c(m = "Male", f = "Female", u = NA)
+lookup[x]
+unname(lookup[x])
+
+# Usando operadores lÃ³gicos
+x1 <- 1:10 %% 2 == 0
+x1
+which(x1)
+x2 <- which(x1)
+x2
+y1 <- 1:10 %% 5 == 0
+y2 <- which(y1)
+y2
+intersect(x2, y2)
+x1 & y1
+union(x2, y2)
+setdiff(x2, y2)
